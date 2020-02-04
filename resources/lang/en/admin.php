@@ -14,6 +14,6 @@ return [
         'newMsg' => ':number News messages',
     ],
     'profile' => 'Profile',
-
+    'action' => 'Action',
 ];
 ?>

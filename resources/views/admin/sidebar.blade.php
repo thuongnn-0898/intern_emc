@@ -43,8 +43,8 @@
                     <i class="icon-graph menu-icon"></i> <span class="nav-text">{{ trans('admin.sidebar.cate') }}</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="./layout-blank.html">{{ trans('admin.sidebar.list') }}</a></li>
-                    <li><a href="./layout-one-column.html">{{ trans('admin.sidebar.create') }}</a></li>
+                    <li><a href="{{ route('category.index') }}">{{ trans('admin.sidebar.list') }}</a></li>
+                    <li><a href="{{ route('category.create') }}">{{ trans('admin.sidebar.create') }}</a></li>
                 </ul>
             </li>
             <li>
