@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\ImageDetail;
-use App\Models\Product;
 use App\Repositories\ProductRepository;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
@@ -29,6 +28,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = $this->product->with('category')->paginate(\Config::get('settings.perPage'));
+
         return view('admin.product.index', compact('products'));
     }
 
@@ -40,6 +40,7 @@ class ProductController extends Controller
     public function create()
     {
         $cates = Category::all();
+
         return view('admin.product.create', compact('cates'));
     }
 
@@ -57,14 +58,15 @@ class ProductController extends Controller
         if($product = $this->product->create($datas)){
             if(isset($datas['options']))
                 $product->option()->create($request->all());
-            if($datas['images']){
+            if(isset($datas['images'])){
                 foreach ($datas['images'] as $image){
                     $img_name = $service->handleImage($image);
                     $product->imageDetails()->create(['image' => $img_name]);
                 }
             }
         }
-      return redirect()->route('product.index');
+
+        return $this->redirectHandle('product.index', trans('status.ok'), trans('product.msg.createSuss'));
     }
 
     /**
@@ -75,18 +77,23 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = $this->product->with('option', 'imageDetails')->getById($id);
+
+        return view('admin.product.show', compact('product'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
-        //
+        $cates = Category::all();
+        $product = $this->product->with('option')->getById($id);
+
+        return view('admin.product.edit', compact(['cates', 'product']));
     }
 
     /**
@@ -94,21 +101,70 @@ class ProductController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $datas = $request->all();
+            $service = new ProductService($request, $this->product->getById($id));
+            if($request->hasFile('image')){
+                $datas['image'] = $service->excute();
+            }
+            if($product = $this->product->updateById($id, $datas)){
+                if(isset($datas['options']))
+                    $product->option()->delete();
+                $product->option()->create($request->all());
+                if(isset($datas['images'])){
+                    $oldImgDetailIds = [];
+                    foreach ($datas['images'] as $image){
+                        if(is_array($image)){
+                            array_push($oldImgDetailIds, $image['_destroy']);
+                        }else{
+                            $img_name = $service->handleImage($image);
+                            $product->imageDetails()->create(['image' => $img_name]);
+                        }
+                    }
+                    if(count($oldImgDetailIds) > 0){
+                        $images = ImageDetail::byIds($oldImgDetailIds)->pluck('image')->toArray();
+                        $service->handleOldImage($images);
+                        ImageDetail::destroy($oldImgDetailIds);
+                    }
+                }
+            }
+            DB::commit();
+
+            return redirect()->back()->with(trans('status.ok'), trans('product.msg.updateSuss'));
+        }
+        catch (\Exception $ex){
+            DB::rollback();
+
+            return back()->withInput();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {
-        //
+        try {
+            $product = $this->product->getById($id);
+            $service = new ProductService($id, $product);
+            $service->handleOldImage($product->image);
+            $imgDetails = $product->imageDetails()->pluck('image')->toArray();
+            $service->handleOldImage($imgDetails);
+            $product->delete();
+
+            return response()->json(['status' => true, 'msg' => trans('product.msg.destroySuss')]);
+        }catch (\Exception $e){
+
+            return response()->json(['status' => false, 'msg' => trans('product.msg.destroyerr')]);
+        }
     }
 }

@@ -13,7 +13,7 @@
             <div class="col-md-10">
                 <input type="text"
                        class="form-control input-default"
-                       placeholder="Name category"
+                       placeholder="Name product"
                        name="name"
                        value="{{ isset($product) ? $product->name : old('name') }}"
                 >
@@ -27,7 +27,7 @@
                         type="number"
                         name="price"
                         class="form-control input-default"
-                        value="{{ old('price') }}"
+                        value="{{ isset($product) ? $product->price : old('price') }}"
                     >
                 </div>
             </div>
@@ -38,7 +38,7 @@
                         type="number"
                         name="quantity"
                         class="form-control input-default"
-                        value="{{ old('quantity') }}"
+                        value="{{ isset($product) ? $product->quantity : old('quantity') }}"
                     >
                 </div>
             </div>
@@ -50,7 +50,7 @@
                        class="form-control input-default"
                        placeholder="Short Description"
                        name="shortText"
-                       value="{{ old('shortText') }}"
+                       value="{{ isset($product) ? $product->shortText : old('shortText') }}"
                 >
             </div>
         </div>
@@ -61,8 +61,9 @@
                     placeholder="Long Description"
                     name="longText"
                     class="form-control"
-                    value="{{ old('longText') }}"
+                    value="{{ isset($product) ? $product->longText : old('longText') }}"
                 >
+                    {{ isset($product) ? $product->longText : old('longText') }}
                 </textarea>
             </div>
         </div>
@@ -85,9 +86,16 @@
                 </div>
             </div>
         </div>
+        @if(isset($product))
+            <div class="form-group row">
+                <div class="col-md-4 offset-md-4">
+                    <img src="{{ asset('uploads/'.$product->image) }}" class="img-fluid">
+                </div>
+            </div>
+        @endif
         <button type="submit"
                 class="btn btn-success">
-            {{ isset($cate) ? 'Update' : 'Create' }}
+            {{ isset($product) ? trans('admin.btn.update') : trans('admin.btn.create') }}
         </button>
-            <a href="{{ route('category.index') }}" class="btn btn-primary">{{ trans('category.btn.back') }}</a>
+            <a href="{{ route('product.index') }}" class="btn btn-primary">{{ trans('category.btn.back') }}</a>
 </div>

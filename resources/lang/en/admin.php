@@ -15,5 +15,15 @@ return [
     ],
     'profile' => 'Profile',
     'action' => 'Action',
+    'edit' => 'Edit',
+    'back' => 'Back',
+    'btn' => [
+        'delete' => 'Delete',
+        'chooseFile' => 'Choose File',
+        'create' => 'Create',
+        'update' => 'Button',
+        'pathParent' => 'Parent path',
+
+    ],
 ];
 ?>
