@@ -67,7 +67,6 @@ class ProductController extends Controller
         }
 
         return $this->redirectHandle('product.index', trans('status.ok'), trans('product.msg.createSuss'));
-
     }
 
     /**
