@@ -19332,6 +19332,10 @@ function html_() {
 /*!************************************!*\
   !*** ./resources/js/admin/user.js ***!
   \************************************/
+/***/ "./resources/js/admin/product.js":
+/*!***************************************!*\
+  !*** ./resources/js/admin/product.js ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -19384,6 +19388,16 @@ $(document).ready(function () {
     }
   });
 });
+
+  $('#more-img').click(function () {
+    var html = $("#clone").html();
+    $("#clone").append(html_());
+  });
+});
+
+function html_() {
+  return '<div class="custom-file">\n' + '<input type="file" class="custom-file-input" name="images[]">\n' + '<label class="custom-file-label">Choose file</label>\n' + '</div>';
+}
 
 /***/ }),
 
@@ -19466,9 +19480,8 @@ __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/app.j
 __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/admin/category.js */"./resources/js/admin/category.js");
 __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/admin/product.js */"./resources/js/admin/product.js");
 __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/admin/user.js */"./resources/js/admin/user.js");
+__webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/admin/product.js */"./resources/js/admin/product.js");
 module.exports = __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
-
-/******/ });

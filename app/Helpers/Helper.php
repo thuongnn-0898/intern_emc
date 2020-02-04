@@ -22,6 +22,7 @@ function numIndex($page = 1, $index)
 function checkedOption($key, $product)
 {
     if($product && $product->has('option')->first() && array_key_exists($key, $product->option->options))
+
         return 'checked';
 }
 
@@ -35,11 +36,14 @@ function selectedInput($op1, $op2)
         return '';
 }
 
-    function selected_($op1, $op2)
-    {   if($op2 == null)
-            return '';
-        if($op1 == $op2)
-            return 'selected';
-    }
+function selected_($op1, $op2)
+{
+    if($op2 == null)
+
+        return '';
+    if($op1 == $op2)
+
+        return 'selected';
+}
 
 ?>
