@@ -3,29 +3,37 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
+    
     protected $fillable = [
         'name',
         'price',
         'image',
-        'shortDesc',
-        'longDesc',
+        'shortText',
+        'longText',
         'status',
         'quantity',
         'view',
         'category_id',
     ];
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function imageDetails()
     {
         return $this->morphMany(ImageDetail::class, 'image_detailable');
     }
 
-    public function options()
+    public function option()
     {
-        return $this->hasMany(Option::class);
+        return $this->hasOne(Option::class);
     }
 
     public function comments()

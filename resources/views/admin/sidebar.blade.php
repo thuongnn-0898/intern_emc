@@ -15,8 +15,8 @@
                     <i class="icon-globe-alt menu-icon"></i><span class="nav-text">{{ trans('admin.sidebar.product') }}</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="./layout-blank.html">{{ trans('admin.sidebar.list') }}</a></li>
-                    <li><a href="./layout-one-column.html">{{ trans('admin.sidebar.create') }}</a></li>
+                    <li><a href="{{ route('product.index') }}">{{ trans('admin.sidebar.list') }}</a></li>
+                    <li><a href="{{ route('product.create') }}">{{ trans('admin.sidebar.create') }}</a></li>
                 </ul>
             </li>
             <li class="nav-label">Users</li>

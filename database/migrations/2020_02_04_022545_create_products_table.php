@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
                 ->unsigned()
                 ->default(0);
             $table->integer('quantity');
-            $table->integer('view');
+            $table->integer('view')->default(0);
             $table->bigInteger('category_id')
                 ->unsigned()
                 ->foreign('category_id')

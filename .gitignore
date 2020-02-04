@@ -16,3 +16,4 @@ yarn-error.log
 /public/library/js/plugins-init
 /public/library/fonts
 /.idea/
+/public/uploads/
