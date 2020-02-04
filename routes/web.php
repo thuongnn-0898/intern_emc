@@ -14,7 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/test1', 'admin\DashboardController@index');
+
 Route::get('/', 'DashboardController@index');
+Route::group(['middleware' => 'role'], function () {
+    Route::group(['prefix' => 'admin'], function (){
+        Route::get('/dashboard', 'Admin\DashboardController@index')->name('adminDashboard');
+    });
+});
 
 Auth::routes();

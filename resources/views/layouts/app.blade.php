@@ -8,9 +8,12 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('library/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.css">
     @yield('css')
 </head>
 <body>
+    <div class='notifications top-right'></div>
     <div id="app">
         @yield('menu_top')
         <main>
@@ -23,5 +26,19 @@
     <script src="{{ asset('library/js/settings.js') }}"></script>
     <script src="{{ asset('library/js/gleek.js') }}"></script>
     <script src="{{ asset('library/js/styleSwitcher.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.js"></script>
+    <script>
+        $(document).ready(function(){
+            @if(Session::has('flash-msg'))
+                $('.top-right').notify({
+                    message: { text: "{{ Session::get('flash-msg')['msg'] }}" },
+                    type: "{{ Session::get('flash-msg')['status'] }}",
+                }).show();
+                @php
+                    Session::forget('flash-msg');
+                @endphp
+            @endif
+        });
+    </script>
 </body>
 </html>

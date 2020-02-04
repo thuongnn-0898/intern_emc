@@ -6,9 +6,14 @@ return [
         'user' => 'Users',
         'order' => 'Orders',
         'cate' => 'Categories',
-        'suggess' => 'Suggests',
+        'suggest' => 'Suggests',
         'list' => 'Home',
         'create' => 'Create',
     ],
+    'header' => [
+        'newMsg' => ':number News messages',
+    ],
+    'profile' => 'Profile',
+
 ];
 ?>
