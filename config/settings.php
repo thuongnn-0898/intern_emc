@@ -19,4 +19,13 @@ return [
     'avaDefault' => 'default.png',
     'zero' => 0,
 ];
+    'option'=> [
+        'sale' => 'false',
+        'hot' => 'false',
+        'new' => 'false',
+        'discount' => 'false',
+    ],
+    'discountPercent' => 20,
+    'perPage' => 10,
+]
 ?>

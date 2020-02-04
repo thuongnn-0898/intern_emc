@@ -13,10 +13,13 @@ class ImageDetail extends Model
         'image',
         'image_detailable_id',
         'image_detailable_type',
+<<<<<<< HEAD
     ];
 
     protected $dates = [
         'deleted_at'
+=======
+>>>>>>> a
     ];
 
     public function image_detailable()
