@@ -106,8 +106,10 @@ class User extends Authenticatable
 
     public function imageDefault()
     {
-        if($this->avatar != null)
-            return $this->avatar;
-        return \Config::get('settings.avaDefault');
+        $profile = $this->profile()->first();
+        if(empty($profile->avatar))
+
+            return \Config::get('settings.avaDefault');
+        return 'avatars/'.$profile->avatar;
     }
 }

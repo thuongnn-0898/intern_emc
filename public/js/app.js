@@ -19388,16 +19388,91 @@ $(document).ready(function () {
     }
   });
 });
-
   $('#more-img').click(function () {
     var html = $("#clone").html();
     $("#clone").append(html_());
+  });
+  $('.delete-product').click(function (e) {
+    e.preventDefault();
+    var id = $(this).attr('data-id');
+    var url = $(this).attr('data-url');
+    $.ajax({
+      url: url,
+      dataType: 'json',
+      type: 'delete',
+      success: function success(res) {
+        if (res.success) {
+          alert(res.msg);
+        }
+      }
+    }).done(function () {
+      $('tr#product-' + id).remove();
+    });
   });
 });
 
 function html_() {
   return '<div class="custom-file">\n' + '<input type="file" class="custom-file-input" name="images[]">\n' + '<label class="custom-file-label">Choose file</label>\n' + '</div>';
 }
+
+/***/ }),
+
+/***/ "./resources/js/admin/user.js":
+/*!************************************!*\
+  !*** ./resources/js/admin/user.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $('#user-btn').click(function () {
+    $('#form-user').submit();
+  });
+  $('.delete-user').click(function () {
+    var url = $(this).attr('data-url');
+    var id = $(this).attr('data-id');
+
+    if (confirm('You wan\'t delete this?')) {
+      $.ajax({
+        url: url,
+        dataType: 'json',
+        type: 'DELETE',
+        success: function success(res) {
+          if (res.status) {
+            alert(res.msg);
+            $('#user-' + id).remove();
+          } else {
+            alert(res.msg);
+          }
+        }
+      });
+    }
+  });
+  $('body').on('click', '.status-user', function () {
+    var $this = $(this);
+    console.log($this);
+    var id = $this.attr('id');
+
+    var _status = $this.attr('data-status');
+
+    if (confirm('Do you want continue?')) {
+      $.ajax({
+        url: '/admin/user/active/' + id + '/' + _status,
+        dateType: 'json',
+        type: 'patch',
+        success: function success(res) {
+          if (res) {
+            if (_status == 0) {
+              $this.attr('data-status', 1).addClass('btn-danger').removeClass('btn-success');
+            } else {
+              $this.attr('data-status', 0).addClass('btn-success').removeClass('btn-danger');
+            }
+          }
+        }
+      });
+    }
+  });
+});
 
 /***/ }),
 
@@ -19485,3 +19560,4 @@ module.exports = __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/r
 
 
 /***/ })
+

@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use File;
-use Illuminate\Support\Str;
 
 class HandleImageService {
 
