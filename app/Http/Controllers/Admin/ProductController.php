@@ -59,6 +59,7 @@ class ProductController extends Controller
             if(isset($datas['options']))
                 $product->option()->create($request->all());
             if(isset($datas['images'])){
+
                 foreach ($datas['images'] as $image){
                     $img_name = $service->handleImage($image);
                     $product->imageDetails()->create(['image' => $img_name]);
