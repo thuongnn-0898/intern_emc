@@ -27,7 +27,7 @@ class CategoryRequest extends FormRequest
         return [
             'name' => "required|
                        max:50|
-                       unique:categories, name, { $this->id }, id, deleted_at, NULL",
+                       unique:categories,name,{$this->id},id,deleted_at,NULL",
         ];
     }
 
