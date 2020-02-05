@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/test1', 'admin\DashboardController@index');
+Route::get('/', 'DashboardController@index');
+
+Auth::routes();
