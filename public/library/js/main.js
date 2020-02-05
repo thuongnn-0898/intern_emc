@@ -63,7 +63,7 @@
 
 	/////////////////////////////////////////
 
-	// HandleImageService Main img Slick
+	// ProductService Main img Slick
 	$('#product-main-img').slick({
     infinite: true,
     speed: 300,
@@ -73,7 +73,7 @@
     asNavFor: '#product-imgs',
   });
 
-	// HandleImageService imgs Slick
+	// ProductService imgs Slick
   $('#product-imgs').slick({
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -94,7 +94,7 @@
     ]
   });
 
-	// HandleImageService img zoom
+	// ProductService img zoom
 	var zoomMainProduct = document.getElementById('product-main-img');
 	if (zoomMainProduct) {
 		$('#product-main-img .product-preview').zoom();
