@@ -30,16 +30,16 @@ Table OF Contents
 4 > CATEGORY SHOP
 5 > HOT DEAL
 6 > PRODUCT
------- ProductService
+------ HandleImageService
 ------ Widget product
------- ProductService slick
+------ HandleImageService slick
 7 > STORE PAGE
 ------ Aside
 ------ Store
 8 > PRODUCT DETAILS PAGE
------- ProductService view
------- ProductService details
------- ProductService tab
+------ HandleImageService view
+------ HandleImageService details
+------ HandleImageService tab
 9 > CHECKOUT PAGE
 10 > NEWSLETTER
 11 > FOOTER
@@ -1389,7 +1389,7 @@ textarea.input {
 ===========================================================*/
 
 /*----------------------------*\
-	ProductService view
+	HandleImageService view
 \*----------------------------*/
 
 #product-main-img .slick-prev {
@@ -1463,7 +1463,7 @@ textarea.input {
 }
 
 /*----------------------------*\
-	ProductService details
+	HandleImageService details
 \*----------------------------*/
 
 .product-details .product-name {
@@ -1608,7 +1608,7 @@ textarea.input {
 }
 
 /*----------------------------*\
-	 ProductService tab
+	 HandleImageService tab
 \*----------------------------*/
 
 #product-tab {

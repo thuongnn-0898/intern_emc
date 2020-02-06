@@ -140,7 +140,6 @@ class ProductController extends Controller
         catch (\Exception $ex){
             DB::rollback();
 
-
             return back()->withInput();
         }
     }

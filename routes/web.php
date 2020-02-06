@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::resource('orders', 'OrderController')->only('store');
 });
 
+Route::get('/', 'DashboardController@index');
 Route::group(['middleware' => ['role', 'active']], function () {
     Route::group(['prefix' => 'admin'], function (){
         Route::get('/dashboard', 'Admin\DashboardController@index')->name('adminDashboard');
