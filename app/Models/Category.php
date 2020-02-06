@@ -3,17 +3,35 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'name',
         'parent_id',
     ];
 
+    protected $dates = [
+        'deleted_at'
+    ];
+
     protected $hidden = [
         'id',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($categories) {
+            foreach ($categories->products()->get() as $product) {
+                $product->delete();
+            }
+        });
+    }
 
     public function products()
     {

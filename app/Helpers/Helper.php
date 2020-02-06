@@ -1,6 +1,6 @@
 <?php
 
-    function menuMultiLevel($data, $parent, $str = '', $id = 0){
+function menuMultiLevel($data, $parent, $str = '', $id = 0){
         if($parent == 0 ){
             echo '<option value="" >Parent path</option>';
         }
@@ -15,7 +15,7 @@
 
     function numIndex($page = 1, $index){
 
-        return $page == 1 ? $index + 1 : ($page * 10) + ($index + 1) ;
+        return $page == 1 ? $index + 1 : (($page - 1) * \Config::get('settings.perPage')) + ($index + 1) ;
     }
 
 ?>

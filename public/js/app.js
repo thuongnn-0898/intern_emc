@@ -19291,6 +19291,26 @@ $(document).ready(function () {
 
 /***/ }),
 
+/***/ "./resources/js/admin/product.js":
+/*!***************************************!*\
+  !*** ./resources/js/admin/product.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $('#more-img').click(function () {
+    var html = $("#clone").html();
+    $("#clone").append(html_());
+  });
+});
+
+function html_() {
+  return '<div class="custom-file">\n' + '<input type="file" class="custom-file-input" name="images[]">\n' + '<label class="custom-file-label">Choose file</label>\n' + '</div>';
+}
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -19301,6 +19321,9 @@ $(document).ready(function () {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 $(document).ready(function () {
+  setTimeout(function () {
+    $('.alert').slideUp();
+  }, 3000);
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -19357,14 +19380,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ }),
 
 /***/ 0:
-/*!**********************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/js/admin/category.js ./resources/sass/app.scss ***!
-  \**********************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/js/admin/category.js ./resources/js/admin/product.js ./resources/sass/app.scss ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/app.js */"./resources/js/app.js");
 __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/admin/category.js */"./resources/js/admin/category.js");
+__webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/admin/product.js */"./resources/js/admin/product.js");
 module.exports = __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/sass/app.scss */"./resources/sass/app.scss");
 
 

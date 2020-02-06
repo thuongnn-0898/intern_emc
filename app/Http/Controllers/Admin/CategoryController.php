@@ -19,7 +19,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $cates = $this->category->with('childrenRecursive')->orderBy('parent_id')->paginate(10);
+        $cates = $this->category->with('childrenRecursive')->orderBy('parent_id')->paginate(\Config::get('settings.perPage'));
 
         return view('admin.category.index', compact('cates'));
     }
@@ -114,9 +114,9 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Request $req, $id)
     {
-        $cate = $this->cateById($id);
+        $cate = $this->cateById($req, $id);
         $a = new Category;
         $idsCate = $a->getChildren($cate);
         array_push($idsCate, $cate->id);
