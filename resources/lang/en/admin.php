@@ -25,5 +25,7 @@ return [
         'pathParent' => 'Parent path',
 
     ],
+    'create'=> 'Create',
+    'update' => 'Update',
 ];
 ?>

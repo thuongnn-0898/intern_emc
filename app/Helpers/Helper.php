@@ -25,4 +25,14 @@ function checkedOption($key, $product)
         return 'checked';
 }
 
+function selectedInput($op1, $op2)
+{
+    if($op2 == null)
+
+        return '';
+    if($op1 == $op2)
+
+        return 'selected';
+}
+
 ?>
