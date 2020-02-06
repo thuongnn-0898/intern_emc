@@ -63,12 +63,23 @@ function discount($product)
 function getSubTotalCart()
 {
     if(session()->get('cart') == null)
+
         return 0;
     $total = 0;
     foreach(session()->get('cart') as $key => $val){
         $total += $val['price'] * $val['qty'];
     }
+
     return $total;
+}
+
+function checkeBrand($id_item){
+    if(isset($_GET['q']['category_ids'])){
+        foreach ($_GET['q']['category_ids'] as $id){
+            if($id == $id_item)
+                echo 'checked';
+        }
+    }
 }
 
 ?>

@@ -8,7 +8,7 @@ return [
         "address" => "from@example.com",
         "name" => "Example"
     ),
-    'reply_to' => ['address' => env('MAIL_USERNAME'),, 'name' => 'InternShop'],
+    'reply_to' => ['address' => env('MAIL_USERNAME'),'name' => 'InternShop'],
     "username" => env('MAIL_USERNAME'),
     "password" => env('MAIL_USERNAME'),
     "sendmail" => "/usr/sbin/sendmail -bs",
