@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', 'DashboardController@index');
-Route::post('add-cart', 'CartController@store');
-Route::delete('delete-item-cart/{id}', 'CartController@destroy');
+Route::get('/', 'DashboardController@index')->name('index');
+Route::resource('cart', 'CartController')->only(['store' , 'destroy']);
 Route::delete('delete-cart', 'CartController@cartempty');
 Route::get('view-cart', 'CartController@show')->name('cart-show');
 Route::get('show-product/{id}', 'DashboardController@show')->name('product-show');

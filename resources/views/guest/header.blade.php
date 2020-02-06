@@ -4,7 +4,8 @@
             <ul class="header-links pull-right">
                 @if (Route::has('login'))
                     @auth
-                        <li><a href="{{ route('users.index') }}">{{ trans('guestIndex.account') }}</a></li>
+                        <li><a href="#">{{ trans('guestIndex.account') }}</a></li>
+                        <!-- route('users.index') -->
                         @if(Auth::user()->isAdmin())
                             <li><a href="{{ route('adminDashboard') }}">{{ trans('guestIndex.manage') }}</a></li>
                         @endif

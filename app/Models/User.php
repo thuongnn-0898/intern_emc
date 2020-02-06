@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class)->orderBy('created_at','desc');
     }
 
     public function isAdmin()
@@ -88,4 +88,5 @@ class User extends Authenticatable
 
         return 'avatars/'.$this->profile->avatar;
     }
+
 }

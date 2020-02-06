@@ -14,3 +14,4 @@
     </tr>
     {{ trans('order.billCol.total') }} : {{ $order->amout }}
 </table>
+

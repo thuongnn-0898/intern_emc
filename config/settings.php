@@ -18,5 +18,7 @@ return [
     'perPage' => 10,
     'avaDefault' => 'default.png',
     'zero' => 0,
+    'perProduct' => [ 9, 18, 27],
 ];
+
 ?>

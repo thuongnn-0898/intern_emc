@@ -67,7 +67,6 @@ class ProductController extends Controller
         }
 
         return $this->redirectHandle('product.index', trans('status.ok'), trans('product.msg.createSuss'));
-
     }
 
     /**
@@ -140,7 +139,6 @@ class ProductController extends Controller
         }
         catch (\Exception $ex){
             DB::rollback();
-
 
             return back()->withInput();
         }

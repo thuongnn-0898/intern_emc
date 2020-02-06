@@ -51,6 +51,7 @@ class CartController extends Controller
             }
 
             return view('guest._cart_item', compact('cart'));
+
         }catch(\Exception $e){
 
             return response()->json(['status' => false, 'data'=> $e->getMessage()]);

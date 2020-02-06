@@ -12,6 +12,7 @@ class Suggest extends Model
         'image',
         'message',
         'user_id',
+        'status',
     ];
 
     public function imageDetails()
