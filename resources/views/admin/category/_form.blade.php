@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-11">
                 <select class="form-control" id="sel1" name="parent_id">
-                    {{ menuMultiLevel($cates, 0, '' , $cate->parent_id ?? 0) }}
+                    {{ selectMultiLevel($cates, 0, '' , $cate->parent_id ?? 0) }}
                 </select>
             </div>
         </div>

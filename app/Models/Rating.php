@@ -9,6 +9,7 @@ class Rating extends Model
     protected $fillable = [
         'user_id',
         'product_id',
+        'rates',
     ];
 
     protected $casts = [

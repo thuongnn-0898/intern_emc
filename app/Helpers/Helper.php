@@ -1,6 +1,6 @@
 <?php
 
-function menuMultiLevel($data, $parent, $str = '', $id = 0)
+function selectMultiLevel($data, $parent, $str = '', $id = 0)
 {
     if($parent == 0 ){
         echo '<option value="" >'.trans('admin.btn.pathParent').'</option>';
@@ -9,7 +9,7 @@ function menuMultiLevel($data, $parent, $str = '', $id = 0)
         if($item->parent_id == $parent){
             $selectd = $id === $item->id ? 'selected' : '';
             echo '<option value="'.$item->id.'" '.$selectd.'>'.$str.$item->name.'</option>';
-            menuMultiLevel($data, $item->id,$str.'--', $id);
+            selectMultiLevel($data, $item->id,$str.'--', $id);
         }
     }
 }
@@ -33,6 +33,42 @@ function selectedInput($op1, $op2)
     if($op2 == null)
 
     return '';
+}
+
+function showOptionTag($product){
+    if(isset($product->option)){
+        $options = $product->option->options;
+        foreach ($options as $opt => $v) {
+            if($opt == 'discount'){
+                echo '<span class="sale">-'.\Config::get('settings.discountPercent').'%</span>';
+            }else{
+                echo '<span class="'.$opt.'">'.strtoupper($opt).'</span>';
+            }
+        }
+    }
+}
+
+function discount($product)
+{
+    echo '$ '.$product->price.'&nbsp;';
+    if(isset($product->option)) {
+        if(isset($product->option->options['sale']))
+        {
+            $discount = \Config::get('settings.discountPercent');
+            echo '<del class="product-old-price">$ '.($product->price - ($product->price  * $discount / 100)).'</del>';
+        }
+    }
+}
+
+function getSubTotalCart()
+{
+    if(session()->get('cart') == null)
+        return 0;
+    $total = 0;
+    foreach(session()->get('cart') as $key => $val){
+        $total += $val['price'] * $val['qty'];
+    }
+    return $total;
 }
 
 ?>

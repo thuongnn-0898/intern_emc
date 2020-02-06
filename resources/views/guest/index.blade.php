@@ -1,13 +1,5 @@
-@extends('layouts.app')
-@section('css')
-    <link type="text/css" rel="stylesheet" href="{{ asset('library/css/bootstrap.min.css') }}"/>
-    <link type="text/css" rel="stylesheet" href="{{ asset('library/css/slick.css') }}"/>
-    <link type="text/css" rel="stylesheet" href="{{ asset('library/css/slick-theme.css') }}"/>
-    <link type="text/css" rel="stylesheet" href="{{ asset('library/css/nouislider.min.css') }}"/>
-    <link type="text/css" rel="stylesheet" href="{{ asset('library/css/guest.css') }}"/>
-@endsection
-@section('content')
-    @include('guest.header')
+@extends('layouts.guest')
+@section('main')
     <div class="section">
         <div class="container">
             <div class="row">
@@ -55,10 +47,15 @@
                         <h3 class="title">{{ trans('guestIndex.newTitle') }}</h3>
                         <div class="section-nav">
                             <ul class="section-tab-nav tab-nav">
-                                <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-                                <li><a data-toggle="tab" href="#tab1">Smartphones</a></li>
-                                <li><a data-toggle="tab" href="#tab1">Cameras</a></li>
-                                <li><a data-toggle="tab" href="#tab1">Accessories</a></li>
+                                <li class="active">
+                                    <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">{{ trans('guestIndex.menu') }}</a>
+                                    <ul class="dropdown-menu multi-level menux menu"
+                                        role="menu"
+                                        aria-labelledby="dropdownMenu"
+                                    >
+                                        @each('guest._category', $cates, 'cate')
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -68,45 +65,7 @@
                         <div class="products-tabs">
                             <div id="tab1" class="tab-pane active">
                                 <div class="products-slick" data-nav="#slick-nav-1">
-                                    @for($i = 0; $i < 10; $i++)
-                                        <div class="product">
-                                        <div class="product-img">
-                                            <img src="{{ asset('library/images/product01.png') }}" alt="">
-                                            <div class="product-label">
-                                                <span class="sale">{{ trans('guestIndex.discount', ['num' => 70]) }}</span>
-                                                <span class="new">{{ trans('guestIndex.new') }}</span>
-                                            </div>
-                                        </div>
-                                        <div class="product-body">
-                                            <p class="product-category">Category</p>
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                            <div class="product-rating">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                            <div class="product-btns">
-                                                <button class="add-to-wishlist">
-                                                    <i class="fa fa-heart-o"></i>
-                                                    <span class="tooltipp">{{ trans('guestIndex.addWish') }}</span>
-                                                </button>
-                                                <button class="add-to-compare">
-                                                    <i class="fa fa-exchange"></i>
-                                                    <span class="tooltipp">add to compare</span></button>
-                                                <button class="quick-view">
-                                                    <i class="fa fa-eye"></i>
-                                                    <span class="tooltipp">{{ trans('guestIndex.quickView') }}</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> {{ trans('guestIndex.addCart') }}</button>
-                                        </div>
-                                    </div>
-                                    @endfor
+                                @each('guest._product', $productsNew, 'product')
                                 </div>
                                 <div id="slick-nav-1" class="products-slick-nav"></div>
                             </div>
@@ -124,10 +83,15 @@
                         <h3 class="title">{{ trans('guestIndex.sell') }}</h3>
                         <div class="section-nav">
                             <ul class="section-tab-nav tab-nav">
-                                <li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
-                                <li><a data-toggle="tab" href="#tab2">Smartphones</a></li>
-                                <li><a data-toggle="tab" href="#tab2">Cameras</a></li>
-                                <li><a data-toggle="tab" href="#tab2">Accessories</a></li>
+                                <li class="active">
+                                    <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#">{{ trans('guestIndex.menu') }}</a>
+                                    <ul class="dropdown-menu multi-level menux menu"
+                                        role="menu"
+                                        aria-labelledby="dropdownMenu"
+                                    >
+                                        @each('guest._category', $cates, 'cate')
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -137,45 +101,7 @@
                         <div class="products-tabs">
                             <div id="tab2" class="tab-pane fade in active">
                                 <div class="products-slick" data-nav="#slick-nav-2">
-                                    @for($i = 0; $i < 10; $i++)
-                                        <div class="product">
-                                            <div class="product-img">
-                                                <img src="{{ asset('library/images/product01.png') }}" alt="">
-                                                <div class="product-label">
-                                                    <span class="sale">{{ trans('guestIndex.discount', ['num' => 70]) }}</span>
-                                                    <span class="new">{{ trans('guestIndex.new') }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-body">
-                                                <p class="product-category">Category</p>
-                                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                                <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                                <div class="product-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="product-btns">
-                                                    <button class="add-to-wishlist">
-                                                        <i class="fa fa-heart-o"></i>
-                                                        <span class="tooltipp">{{ trans('guestIndex.addWish') }}</span>
-                                                    </button>
-                                                    <button class="add-to-compare">
-                                                        <i class="fa fa-exchange"></i>
-                                                        <span class="tooltipp">add to compare</span></button>
-                                                    <button class="quick-view">
-                                                        <i class="fa fa-eye"></i>
-                                                        <span class="tooltipp">{{ trans('guestIndex.quickView') }}</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="add-to-cart">
-                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> {{ trans('guestIndex.addCart') }}</button>
-                                            </div>
-                                        </div>
-                                    @endfor
+                                    @each('guest._product', $productsSale, 'product')
                                 </div>
                                 <div id="slick-nav-2" class="products-slick-nav"></div>
                             </div>
@@ -435,12 +361,4 @@
             </div>
         </div>
     </div>
-    @include('guest.footer')
-    <script src="{{ asset('library/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('library/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('library/js/slick.min.js') }}"></script>
-    <script src="{{ asset('library/js/nouislider.min.js') }}"></script>
-    <script src="{{ asset('library/js/jquery.zoom.min.js') }}"></script>
-    <script src="{{ asset('library/js/main.js') }}"></script>
-    </body>
 @endsection

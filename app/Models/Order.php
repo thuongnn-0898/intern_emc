@@ -11,9 +11,13 @@ class Order extends Model
         'state',
         'phone',
         'email',
-        'amount',
+        'amout',
         'description',
         'status',
+    ];
+
+    protected $hidden = [
+        'amout',
     ];
 
     public function orderDetails()

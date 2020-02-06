@@ -27,7 +27,9 @@
             </ul>
         </div>
     </div>
-
+@php
+    $cart = session()->get('cart')
+@endphp
     <div id="header">
         <div class="container">
             <div class="row">
@@ -57,46 +59,34 @@
                             <a href="#">
                                 <i class="fa fa-heart-o"></i>
                                 <span>{{ trans('guestIndex.wishList') }}</span>
-                                <div class="qty">2</div>
+                                <div class="qty">{{ $cart != null ? count(session()->get('cart')) : 0 }}</div>
                             </a>
                         </div>
                         <div class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            <a class="dropdown-toggle" id="cart" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>{{ trans('guestIndex.cart') }}</span>
-                                <div class="qty">3</div>
+                                <div class="qty" id="qty-cart">{{ $cart != null ? count(session()->get('cart')) : 0 }}</div>
                             </a>
-                            <div class="cart-dropdown">
+                            <div class="cart-dropdown pb-0">
                                 <div class="cart-list">
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="{{ asset('library/images/product01.png')}}" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
-
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="{{ asset('library/images/product01.png')}}" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
+                                    @include('guest._cart_item')
                                 </div>
                                 <div class="cart-summary">
-                                    <small>{{ trans('guestIndex.itemSelect', ['number'=>100]) }}</small>
-                                    <h5>{{ trans('guestIndex.subTotal') }}: $2940.00</h5>
+                                    <small id="item-select">{{ trans('guestIndex.itemSelect', ['number'=>$cart != null ? count(session()->get('cart')) : 0]) }}</small>
+                                    <h5 id="subtotal">{{ trans('guestIndex.subTotal') }}: ${{getSubTotalCart()}}</h5>
                                 </div>
-                                <div class="cart-btns">
-                                    <a href="#">{{ trans('guestIndex.viewCart') }}</a>
-                                    <a href="#">{{ trans('guestIndex.checkout') }}  <i class="fa fa-arrow-circle-right"></i></a>
+                                <div class="cart-btns row">
+                                    <a href="{{ route('cart-show') }}">{{ trans('guestIndex.viewCart') }}</a>
+                                    <a href="#">{{ trans('guestIndex.checkout') }}
+                                        <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                    <a id="close-cart" class="col-md-6" onclick="e.preventDefault();"  href="#">
+                                        <i class="fa fa-close"></i>
+                                    </a>
+                                    <a id="clear-cart" class="col-md-6 bg-warning">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>

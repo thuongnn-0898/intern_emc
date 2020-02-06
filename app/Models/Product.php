@@ -21,6 +21,11 @@ class Product extends Model
         'category_id',
     ];
 
+    public function getCateNameAttribute($value)
+    {
+        return $this->category->name;
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -53,14 +58,23 @@ class Product extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function rates()
+    public function rate()
     {
-        return $this->hasMany(Rating::class);
+        return $this->hasOne(Rating::class);
     }
 
     public function orderDetail()
     {
         return $this->hasMany(OrderDetail::class);
+    }
+
+    public function scopeByOption($query, $column)
+    {
+        return $query->join('options', function ($join) use ($column){
+            $join->on('products.id', '=', 'options.product_id')
+                ->where('options.deleted_at', null)
+                ->whereJsonContains('options', [$column => 'on']);
+        });
     }
 
 }

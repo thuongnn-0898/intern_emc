@@ -71,7 +71,7 @@
             <label class="col-md-2 col-form-label">{{ trans('product.table.category') }}</label>
             <div class="col-md-10">
                 <select class="form-control" id="sel1" name="category_id">
-                    {{ menuMultiLevel($cates, 0, '' , $product->category->id ?? 0) }}
+                    {{ selectMultiLevel($cates, 0, '' , $product->category->id ?? 0) }}
                 </select>
             </div>
         </div>
