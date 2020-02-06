@@ -61,14 +61,13 @@ class DashboardController extends Controller
                 ],
             ]);
         }catch (\Exception $e){
+            DB::rollback();
 
-            return back()->withInput()->with([
-                'flash-msg' => [
-                    'status' => trans('status.caut'),
-                    'msg' => trans('product.msg.reviewFail'),
+            return redirect()->back()->with(['flash-msg' => [
+                'status'=> trans('status.ok'),
+                'msg' => $e->getMessage(),
                 ],
             ]);
-            DB::rollback();
         }
     }
 }

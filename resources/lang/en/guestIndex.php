@@ -31,6 +31,9 @@ return [
     'home' => 'Home',
     'cartPage' => 'Cart page',
     'qty' => 'Qty',
+    'product' => 'Product page',
+    'flw' => 'Following',
+    'flwer' => 'Follower',
 ];
 
 ?>

@@ -25,6 +25,8 @@ class CartController extends Controller
         $cart = session()->get('cart');
         try {
             $product = $this->product->getById($id);
+            if($product->quantity < $qty)
+                return response()->json(['status' => false, 'data'=> "Sorry, we only have $product->quantity left now"]);
             if(!isset($cart)) {
                 $cart = [
                     $id => [
@@ -43,7 +45,7 @@ class CartController extends Controller
                 $cart[$id] = [
                     "id" =>$product->id,
                     "name" => $product->name,
-                    "qty" => 1,
+                    "qty" => $qty,
                     "price" => $product->price,
                     "image" => $product->image
                 ];
@@ -74,6 +76,7 @@ class CartController extends Controller
     public function cartempty()
     {
         session()->forget('cart');
+
         return response()->json(['success' => true]);
     }
 }

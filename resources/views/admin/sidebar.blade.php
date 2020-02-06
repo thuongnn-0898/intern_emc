@@ -7,21 +7,23 @@
                     <i class="icon-home menu-icon"></i><span class="nav-text">{{ trans('admin.sidebar.home') }}</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="./index.html">{{ trans('admin.sidebar.home') }}</a></li>
-                </ul>
-            </li>
-            <li class="mega-menu mega-menu-sm">
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-globe-alt menu-icon"></i><span class="nav-text">{{ trans('admin.sidebar.product') }}</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{ route('product.index') }}">{{ trans('admin.sidebar.list') }}</a></li>
-                    <li><a href="{{ route('product.create') }}">{{ trans('admin.sidebar.create') }}</a></li>
+                    <li>
+                        <a href="{{ Auth::check() && Auth::user()->isAdmin() ? route('adminDashboard') : route('users.index') }}">{{ trans('admin.sidebar.home') }}</a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-label">{{ trans('admin.sidebar.user') }}</li>
             @auth
                 @if(Auth::user()->isAdmin())
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">{{ trans('admin.sidebar.product') }}</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('product.index') }}">{{ trans('admin.sidebar.list') }}</a></li>
+                            <li><a href="{{ route('product.create') }}">{{ trans('admin.sidebar.create') }}</a></li>
+                        </ul>
+                    </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-graph menu-icon"></i> <span class="nav-text">{{ trans('admin.sidebar.cate') }}</span>
@@ -72,6 +74,11 @@
                         @endif
                     @endauth
                 </ul>
+            </li>
+            <li>
+                <a href="" onclick="event.preventDefault();" id="change-sidebar" data-type="horizontal">
+                    <i class="icon-refresh menu-icon"></i>
+                </a>
             </li>
         </ul>
     </div>

@@ -16,6 +16,7 @@ return [
         'imageDetail' => 'Image details',
 
     ],
+    'import' => 'import',
     'list' => 'List products',
     'productT'=> 'Create Product',
     'productE'=> 'Edit Product',
@@ -63,7 +64,9 @@ return [
         'destroySuss' => 'Destroy Product successfully',
         'destroyerr' => 'Has a/an errors, please try again!',
         'reviewSucc' => 'Review this product successfully',
-        'reviewFail' => 'Review form invalid'
+        'reviewFail' => 'Review form invalid',
+        'typeInvalid' => 'Type file invalid',
+
     ],
     'show' => [
         'reviewMsg' => ':count Review(s) | Add your review',

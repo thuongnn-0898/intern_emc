@@ -8,7 +8,7 @@
         <a class="btn btn-outline-danger btn-sm del-cate" onclick="event.preventDefault();">
             <i class="fa fa-trash"></i>
         </a>
-        <form action="{{ route('category.destroy', $cate->id) }}" method="post" id="delete-cate">
+        <form action="{{ route('category.destroy', $cate->id) }}" method="post" class="delete-cate">
             @method('delete')
             @csrf
         </form>

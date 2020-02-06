@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\UserStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Repositories\UserRepository;
 use App\Services\HandleImageService;
-use Illuminate\Http\Request;
+use App\Services\HandleUserService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -112,21 +111,8 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $user = $this->user->getById($id);
-            $datas = $request->all();
-            $detail = $user->profile()->first();
-            if($request->hasFile('image')){
-                $service = new HandleImageService($request, null, 'avatars');
-                $datas['profile']['avatar'] = $service->excute();
-                if($user->profile->avatar ?? false)
-                    $service->handleOldImage($user->profile->avatar);
-            }
-            $update = $this->user->updateById($id, $datas);
-            if ($update && $datas['profile'])
-                if($detail == null){
-                    $user->profile()->create($datas['profile']);
-                }else{
-                    $detail->update($datas['profile']);
-                }
+            $service = new HandleUserService($user, $request);
+            $service->updateUser();
             DB::commit();
 
             return redirect()->back()->with([

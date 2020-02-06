@@ -22,7 +22,7 @@ class UserPolicy
 
     public function edit(User $user)
     {
-        if($user->isAdmin()){
+        if(Auth::user()->isAdmin()){
 
             return true;
         }else{

@@ -82,3 +82,21 @@
   background-color: #ffc107 !important;
 }
 
+.hide {
+  display: none !important;
+}
+
+.avatar {
+  width: 200px;
+  height: 150px;
+  cursor: pointer;
+}
+
+.badgeO {
+  font-size: 75% !important;
+}
+
+.w-100 {
+  width: 100%;
+}
+

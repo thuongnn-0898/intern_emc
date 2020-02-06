@@ -70,7 +70,7 @@ class CategoryController extends Controller
                 ->route('category.index')
                 ->with([
                     'flash-msg' => [
-                        'status' => trans('status.fail'),
+                        'status' => trans('status.caut'),
                         'msg'    => trans('category.notFound'),
                     ],
                 ]);
@@ -89,8 +89,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, $id)
     {
         $cate = $cate = $this->cateById($request, $id);
-        $a = new Category;
-        $idsCate = $a->getChildren($cate);
+        $idsCate = Category::getChildren($cate);
         array_push($idsCate, $cate->id);
         if(in_array((int)$request->parent_id, $idsCate, true))
 
@@ -104,7 +103,12 @@ class CategoryController extends Controller
                 ]);
         $this->category->updateById($id, $request->all());
 
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with([
+            'flash-msg' => [
+                'status' => trans('status.ok'),
+                'msg'    => trans('category.updateSucc'),
+            ],
+        ]);;
     }
 
     /**
@@ -117,8 +121,7 @@ class CategoryController extends Controller
     public function destroy(Request $req, $id)
     {
         $cate = $this->cateById($req, $id);
-        $a = new Category;
-        $idsCate = $a->getChildren($cate);
+        $idsCate = Category::getChildren($cate);
         array_push($idsCate, $cate->id);
         $this->category->deleteMultipleById($idsCate);
 

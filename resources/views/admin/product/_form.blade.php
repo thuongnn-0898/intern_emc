@@ -97,5 +97,5 @@
                 class="btn btn-success">
             {{ isset($product) ? trans('admin.btn.update') : trans('admin.btn.create') }}
         </button>
-            <a href="{{ route('product.index') }}" class="btn btn-primary">{{ trans('category.btn.back') }}</a>
+        <a href="{{ route('product.index') }}" class="btn btn-primary">{{ trans('category.btn.back') }}</a>
 </div>

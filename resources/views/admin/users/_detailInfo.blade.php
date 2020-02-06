@@ -58,6 +58,18 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-lg-2 col-form-label" for="role">{{ trans('user.form.language') }}
+                </label>
+                <div class="col-lg-10">
+                    <select class="form-control" id="role" name="profile[language]">
+                        <option value="">---</option>
+                        @foreach(\Config::get('settings.language') as $k => $val)
+                            <option value="{{$val}}" {{ selectedInput($val, isset($user) ? $user->profile->language : old('language')) }}>{{ $val }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-lg-2 col-form-label" for="address">{{ trans('user.form.image.title') }}
                 </label>
                 <div class="custom-file col-lg-10">

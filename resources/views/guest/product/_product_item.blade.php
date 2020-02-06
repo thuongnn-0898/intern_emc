@@ -1,7 +1,7 @@
 <div class="col-md-4 col-xs-6">
     <div class="product">
         <div class="product-img">
-            <img src="{{ asset('uploads/'.$product->image) }}" alt="" width="250" height="250">
+            <img src="{{ asset('uploads/'.$product->image) }}" alt="" style="max-width: 250px; max-height: 250px">
             <div class="product-label">
                 {{ showOptionTag($product) }}
             </div>
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="add-to-cart">
-            <button class="add-to-cart-btn add-cart" data-id="{{ $product->id }}">
+            <button class="add-to-cart-btn add-cart" data-id="{{ $product->id }}" data-url="{{ route('cart.store') }}">
                 <i class="fa fa-shopping-cart"></i> {{ trans('guestIndex.addCart') }}
             </button>
         </div>

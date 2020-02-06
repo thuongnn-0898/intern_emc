@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Imports\ProductsImport;
 use App\Models\Category;
 use App\Models\ImageDetail;
 use App\Repositories\ProductRepository;
 use App\Services\HandleImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -67,7 +69,6 @@ class ProductController extends Controller
         }
 
         return $this->redirectHandle('product.index', trans('status.ok'), trans('product.msg.createSuss'));
-
     }
 
     /**
@@ -114,9 +115,9 @@ class ProductController extends Controller
                 $datas['image'] = $service->excute();
             }
             if($product = $this->product->updateById($id, $datas)){
+                $product->option()->delete();
                 if(isset($datas['options']))
-                    $product->option()->delete();
-                $product->option()->create($request->all());
+                    $product->option()->create($request->all());
                 if(isset($datas['images'])){
                     $oldImgDetailIds = [];
                     foreach ($datas['images'] as $image){
@@ -136,13 +137,23 @@ class ProductController extends Controller
             }
             DB::commit();
 
-            return redirect()->back()->with(trans('status.ok'), trans('product.msg.updateSuss'));
+            return redirect()->back()
+                             ->with([
+                                'flash-msg' => [
+                                    'status' => trans('status.ok'),
+                                    'msg'    => trans('product.msg.updateSuss')
+                                ],
+                            ]);
         }
-        catch (\Exception $ex){
+        catch (\Exception $e){
             DB::rollback();
 
-
-            return back()->withInput();
+            return back()->withInput()->with([
+                'flash-msg' => [
+                    'status' => trans('status.caut'),
+                    'msg'    => trans('product.msg.updateFail')
+                ],
+            ]);;
         }
     }
 
@@ -167,6 +178,22 @@ class ProductController extends Controller
         }catch (\Exception $e){
 
             return response()->json(['status' => false, 'msg' => trans('product.msg.destroyerr')]);
+        }
+    }
+
+    public function import(Request $request)
+    {
+        try {
+            Excel::import(new ProductsImport,request()->file('file'));
+        }catch(\Maatwebsite\Excel\Validators\ValidationException $e){
+            $errors = [];
+            foreach ($e->failures() as $error){
+                array_push($errors, $error->toArray());
+            }
+            return redirect()->back()->withErrors($errors);
+        }catch(\Maatwebsite\Excel\Exceptions\NoTypeDetectedException $e){
+
+            return redirect()->back()->withErrors(trans('product.msg.typeInvalid'));
         }
     }
 }

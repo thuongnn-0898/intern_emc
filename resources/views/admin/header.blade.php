@@ -24,11 +24,13 @@
                     @if(Auth::user()->isAdmin())
                         <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
                                 <i class="mdi mdi-email-outline"></i>
-                                <span class="badge badge-pill gradient-1">{{ isset($orders_noti) ? count($orders_noti) : '' }}</span>
+                                <span class="badge badge-pill gradient-1 badgeO" id="count-order" data-count="{{ isset($orders_noti) ? count($orders_noti) : '' }}">
+                                    {{ isset($orders_noti) ? count($orders_noti) : '' }}
+                                </span>
                             </a>
                             <div class="drop-down animated fadeIn dropdown-menu srcoll-order">
                                 <div class="dropdown-content-body">
-                                    <ul>
+                                    <ul id="noti-header">
                                         @if(isset($orders_noti))
                                             @each('admin._item_order_noti', $orders_noti, 'item')
                                         @endif
@@ -44,8 +46,9 @@
                         <div class="drop-down dropdown-language animated fadeIn  dropdown-menu">
                             <div class="dropdown-content-body">
                                 <ul>
-                                    <li><a href="javascript:void()">English</a></li>
-                                    <li><a href="javascript:void()">Dutch</a></li>
+                                    @foreach(\Config::get('settings.language') as $k => $v)
+                                        <li><a href="javascript:void(0)">{{ $v }}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -80,7 +83,14 @@
                             <div class="dropdown-content-body">
                                 <ul>
                                     <li>
-                                        <a href="{{ route('user.show', !Auth::check() ? '' : Auth::id()) }}"><i class="icon-user"></i> <span>{{ trans('admin.profile') }}</span></a>
+                                        <a href="{{ route('index') }}">
+                                            <i class="icon-home"></i> <span>{{ trans('admin.sidebar.list') }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ profileBy() }}">
+                                            <i class="icon-user"></i> <span>{{ trans('admin.profile') }}</span>
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="javascript:void()">

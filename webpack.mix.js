@@ -18,5 +18,7 @@ mix.js([
     'resources/js/admin/product.js',
     'resources/js/order.js',
     'resources/js/cart.js',
+    'resources/js/admin/dashboard.js',
     ], 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .sass('resources/sass/box-chat.scss', 'public/css');

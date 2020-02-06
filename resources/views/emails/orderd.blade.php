@@ -2,13 +2,16 @@
     <tr>
         <td>
             <table class="content" align="center" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                    @foreach($oder->orderDetails as $item)
+                @foreach($order->orderDetails as $item)
+                    <tr>
                         <td>
-                            {{ $item->productName }} x {{ $item->quantity }}
+                            {{ $item->productName }}
                         </td>
-                    @endforeach
-                </tr>
+                        <td>
+                            {{ $item->quantity }}
+                        </td>
+                    </tr>
+                @endforeach
             </table>
         </td>
     </tr>

@@ -14,7 +14,7 @@ class HandleImageServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('product', function($app){
+        $this->app->singleton('product', function ($app){
             return new HandleImageService();
         });
 

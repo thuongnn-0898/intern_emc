@@ -1,6 +1,6 @@
 <div class="product">
     <div class="product-img">
-        <img src="{{ asset($product->image) }}" alt="" class="img-fluid default-img-lg">
+        <img src="{{ asset('uploads/'.$product->image) }}" alt="" class="img-fluid default-img-lg">
         <div class="product-label">
             {{ showOptionTag($product) }}
         </div>
@@ -24,15 +24,15 @@
             <button class="add-to-compare">
                 <i class="fa fa-exchange"></i>
                 <span class="tooltipp">{{ trans('guestIndex.addCompare') }}</span></button>
-            <button class="quick-view" data-id="{{ $product->id }}" onClick=" location.href= '{{route('product-show', $product['id'])}}' ">
+            <button class="quick-view" data-id="{{ $product->product_id }}" onClick=" location.href= '{{route('product-show', $product->product_id)}}' ">
                 <i class="fa fa-eye"></i>
                 <span class="tooltipp">{{ trans('guestIndex.quickView') }}</span>
             </button>
         </div>
     </div>
     <div class="add-to-cart">
-        <button class="add-to-cart-btn add-cart" data-url="{{ route('cart.store') }}" data-id="{{ $product->id }}">
-            <i class="fa fa-shopping-cart"></i> {{ trans('guestIndex.addCart') }}
+        <button class="add-to-cart-btn add-cart" data-url="{{ route('cart.store') }}" data-id="{{ $product->product_id }}">
+            {{ trans('guestIndex.addCart')}}
         </button>
     </div>
 </div>

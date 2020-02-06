@@ -14,6 +14,11 @@ return [
         '4' => 0,
         '5' => 0,
     ],
+    'language' => [
+        'vi' => 'Việt Nam',
+        'en' => 'England',
+        'jp' => '日本',
+    ],
     'discountPercent' => 20,
     'perPage' => 10,
     'avaDefault' => 'default.png',

@@ -17,7 +17,7 @@ $(document).ready(function () {
         const id = $(this).attr('data-id');
         const url = $(this).attr('data-url');
         let qty = 1;
-        if($('#qty-qty').length){
+        if($('#qty-qty').val()){
             qty = $('#qty-qty').val();
         }
         if(qty >= 1){
@@ -27,18 +27,26 @@ $(document).ready(function () {
                     id, qty,
                 },
                 type: 'post',
-                success: function (res) {
-                    $('.cart-list').html(res);
-                    let totalItem = $('.cart-item').length;
-                    $('#item-select').html( totalItem+ ' Item(s) selected');
-                    $('#qty-cart').html(totalItem);
+                success: function (res, status, xhr) {
+                    var ct = xhr.getResponseHeader("content-type") || "";
+                    if (ct.indexOf('html') > -1) {
+                        $('.cart-list').html(res);
+                        let totalItem = $('.cart-item').length;
+                        $('#item-select').html( totalItem+ ' Item(s) selected');
+                        $('#qty-cart').html(totalItem);
+                        $('.top-right').notify({
+                            message: { text: "Product was added to cart" },
+                            type: "success",
+                        }).show();
+                    }
+                    if (ct.indexOf('json') > -1) {
+                        $('.top-right').notify({
+                            message: { text: res.data },
+                            type: "warning",
+                        }).show();
+                    }
                 }
-            }).done(function (e) {
-                $('.top-right').notify({
-                    message: { text: "Product was added to cart" },
-                    type: "success",
-                }).show();
-            });
+            })
         }else{
             $('.top-right').notify({
                 message: { text: "Quantity must more than 0" },

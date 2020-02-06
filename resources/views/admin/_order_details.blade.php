@@ -11,7 +11,7 @@
                 <div class="col">
                     <div class="card card-profile text-center">
                         <span class="mb-1 text-primary">
-                            <img src="{{ asset($val->product->image) }}" width="50px"/>
+                            <img src="{{ asset('uploads/'.$val->product->image) }}" width="50px"/>
                         </span>
                         <h3 class="mb-0">$ {{ $val->product->price }}</h3>
                         <p class="text-muted px-4">x {{ $val->quantity }}</p>

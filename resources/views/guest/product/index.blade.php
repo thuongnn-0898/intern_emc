@@ -3,7 +3,7 @@
     <div class="section">
         <div class="container">
             <div class="row">
-                <form action="{{ route('products.index') }}" id="form-price">
+                <form action="{{ route('product') }}" id="form-price">
                     @include('guest.product._asside')
                     <div class="store-sort">
                         <label>

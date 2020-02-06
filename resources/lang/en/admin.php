@@ -18,6 +18,9 @@ return [
     'edit' => 'Edit',
     'back' => 'Back',
     'submit' => 'Submit',
+    'close' => 'Close',
+    'chat' => 'Chat',
+    'message' => 'Message',
     'btn' => [
         'delete' => 'Delete',
         'chooseFile' => 'Choose File',
@@ -28,6 +31,19 @@ return [
     ],
     'create'=> 'Create',
     'update' => 'Update',
+    'accessDenied' => 'Access Denied',
+    'dashboard' => [
+        'customer' => 'Customers',
+        'state' => 'State',
+        'country' => 'Country',
+        'status' => 'Status',
+        'amount' => 'Amount',
+        'acti' => 'Activity',
+        'create_at' => 'Order at',
+        'action' => 'Action',
+        'paid' => 'Paid',
+        'product' => 'Product',
 
+    ],
 ];
 ?>
