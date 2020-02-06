@@ -88,4 +88,26 @@ class User extends Authenticatable
 
         return 'avatars/'.$this->profile->avatar;
     }
+
+    public function scopeGetUser($query)
+    {
+        return $query->where('role', UserRole::User);
+    }
+
+    public function getRole()
+    {
+        return UserRole::getDescription($this->role);
+    }
+
+    public function getStatus()
+    {
+        return UserStatus::getDescription($this->status);
+    }
+
+    public function imageDefault()
+    {
+        if($this->avatar != null)
+            return $this->avatar;
+        return \Config::get('settings.avaDefault');
+    }
 }

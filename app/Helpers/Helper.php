@@ -32,7 +32,7 @@ function selectedInput($op1, $op2)
         return 'selected';
     if($op2 == null)
 
-    return '';
+        return '';
 }
 
 ?>

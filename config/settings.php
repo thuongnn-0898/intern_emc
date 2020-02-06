@@ -1,5 +1,4 @@
 <?php
-
 return [
     'option'=> [
         'sale' => 'false',
@@ -10,7 +9,5 @@ return [
     'discountPercent' => 20,
     'perPage' => 10,
     'avaDefault' => 'default.png',
-
 ];
-
 ?>
