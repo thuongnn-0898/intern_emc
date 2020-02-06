@@ -19,7 +19,7 @@
                     <li><a href="{{ route('product.create') }}">{{ trans('admin.sidebar.create') }}</a></li>
                 </ul>
             </li>
-            <li class="nav-label">Users</li>
+            <li class="nav-label">{{ trans('admin.sidebar.user') }}</li>
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="icon-envelope menu-icon"></i> <span class="nav-text">{{ trans('admin.sidebar.user') }}</span>

@@ -14,6 +14,7 @@
 </head>
 <body>
     <div class='notifications top-right'></div>
+    <div id="user_id" data-id="{{ Auth::id() ?? '' }}"></div>
     <div id="app">
         @yield('menu_top')
         <main>

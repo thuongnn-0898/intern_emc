@@ -17,7 +17,7 @@ return [
     'action' => 'Action',
     'edit' => 'Edit',
     'back' => 'Back',
-    'submit' => 'Submit'
+    'submit' => 'Submit',
     'btn' => [
         'delete' => 'Delete',
         'chooseFile' => 'Choose File',
@@ -28,5 +28,6 @@ return [
     ],
     'create'=> 'Create',
     'update' => 'Update',
+
 ];
 ?>

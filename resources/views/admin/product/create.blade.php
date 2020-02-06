@@ -5,7 +5,7 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Create Product</h4>
+                        <h4 class="card-title">{{ trans('product.createT') }}</h4>
                         @include('admin.product._form')
                     </div>
                 </div>
