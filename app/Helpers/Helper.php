@@ -30,9 +30,6 @@ function selectedInput($op1, $op2)
     if($op1 == $op2)
 
         return 'selected';
-    if($op2 == null)
-
-    return '';
 }
 
 function showOptionTag($product){
@@ -69,6 +66,5 @@ function getSubTotalCart()
         $total += $val['price'] * $val['qty'];
     }
     return $total;
-}
 
 ?>
