@@ -5,6 +5,9 @@
                 @if (Route::has('login'))
                     @auth
                         <li><a href="{{ url('/home') }}">{{ trans('guestIndex.account') }}</a></li>
+                        @if(Auth::user()->isAdmin())
+                            <li><a href="{{ route('adminDashboard') }}">{{ trans('guestIndex.manage') }}</a></li>
+                        @endif
                         <li>
                             <form action="{{ route('logout') }}" method="POST" id="logout-form">
                                 @csrf
@@ -53,7 +56,7 @@
                         <div>
                             <a href="#">
                                 <i class="fa fa-heart-o"></i>
-                                <span>Your Wishlist</span>
+                                <span>{{ trans('guestIndex.wishList') }}</span>
                                 <div class="qty">2</div>
                             </a>
                         </div>
@@ -88,7 +91,7 @@
                                     </div>
                                 </div>
                                 <div class="cart-summary">
-                                    <small>3 Item(s) selected</small>
+                                    <small>{{ trans('guestIndex.itemSelect', ['number'=>100]) }}</small>
                                     <h5>{{ trans('guestIndex.subTotal') }}: $2940.00</h5>
                                 </div>
                                 <div class="cart-btns">
