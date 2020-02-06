@@ -28,6 +28,5 @@ return [
     ],
     'create'=> 'Create',
     'update' => 'Update',
-
 ];
 ?>
