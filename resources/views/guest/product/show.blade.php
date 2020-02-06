@@ -20,7 +20,7 @@
                         <!-- /product tab nav -->
 
                         <div class="tab-content">
-                            <div id="tab1" class="tab-pane fade in {{ old('content') || isset($_GET['page']) ? '' : 'active' }}">
+                            <div id="tab1" class="tab-pane fade in">
                                 <div class="row">
                                     <div class="col-md-12">
                                         {{ $product->longText }}
@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="tab3" class="tab-pane fade in {{ old('content') || isset($_GET['page']) ? 'active' : '' }}">
+                            <div id="tab3" class="tab-pane fade in active">
                                 <div class="row">
                                     <div class="col-md-3">
                                         @include('guest.product._review_star')

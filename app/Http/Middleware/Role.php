@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Order;
 use Closure;
 use Auth;
+use Illuminate\Support\Facades\View;
 
 class Role
 {
@@ -21,9 +23,18 @@ class Role
 
         $user = Auth::user();
 
-        if($user->isAdmin())
-            return $next($request);
+        if($user->isAdmin()){
+            $orders_noti = Order::isPending()->orderBy('created_at', 'desc')->get();
+            View::share('orders_noti', $orders_noti);
 
-        return redirect('/');
+            return $next($request);
+        }else{
+
+            return redirect('/')->with(['flash-msg' => [
+                'status'=> trans('status.caut'),
+                'msg' =>  trans('status.accDenied'),
+                ],
+            ]);;
+        }
     }
 }

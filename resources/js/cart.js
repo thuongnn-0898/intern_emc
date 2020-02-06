@@ -20,25 +20,37 @@ $(document).ready(function () {
         if($('#qty-qty').length){
             qty = $('#qty-qty').val();
         }
-        $.ajax({
-            url,
-            data: {
-                id, qty,
-            },
-            type: 'post',
-            success: function (res) {
-                $('.cart-list').html(res);
-                let totalItem = $('.cart-item').length;
-                $('#item-select').html( totalItem+ ' Item(s) selected');
-                $('#qty-cart').html(totalItem);
-            }
-        });
+        if(qty >= 1){
+            $.ajax({
+                url,
+                data: {
+                    id, qty,
+                },
+                type: 'post',
+                success: function (res) {
+                    $('.cart-list').html(res);
+                    let totalItem = $('.cart-item').length;
+                    $('#item-select').html( totalItem+ ' Item(s) selected');
+                    $('#qty-cart').html(totalItem);
+                }
+            }).done(function (e) {
+                $('.top-right').notify({
+                    message: { text: "Product was added to cart" },
+                    type: "success",
+                }).show();
+            });
+        }else{
+            $('.top-right').notify({
+                message: { text: "Quantity must more than 0" },
+                type: "warning",
+            }).show();
+        }
     });
 
     $(body).on('click', '.delete-cart-item', function () {
         const id = $(this).attr('data-id');
         $.ajax({
-            url: 'delete-item-cart/'+id,
+            url: '/delete-item-cart/'+id,
             type: 'delete',
             success: function (res) {
                 $('.cart-list').html(res);
@@ -53,7 +65,7 @@ $(document).ready(function () {
 
     $('#clear-cart').click(function () {
         $.ajax({
-            url: 'delete-cart',
+            url: '/delete-cart',
             dataType: 'json',
             type: 'delete',
             success: function (res) {
@@ -63,6 +75,11 @@ $(document).ready(function () {
                 $('#qty-cart').html(0);
                 $('#subtotal').html('$0');
             }
+        }).done(function () {
+            $('.top-right').notify({
+                message: { text: 'Empty cart' },
+                type: "success",
+            }).show();
         });
     });
 });

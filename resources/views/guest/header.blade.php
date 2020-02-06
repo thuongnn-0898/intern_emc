@@ -4,7 +4,7 @@
             <ul class="header-links pull-right">
                 @if (Route::has('login'))
                     @auth
-                        <li><a href="{{ url('/home') }}">{{ trans('guestIndex.account') }}</a></li>
+                        <li><a href="{{ route('users.index') }}">{{ trans('guestIndex.account') }}</a></li>
                         @if(Auth::user()->isAdmin())
                             <li><a href="{{ route('adminDashboard') }}">{{ trans('guestIndex.manage') }}</a></li>
                         @endif
@@ -42,11 +42,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="header-search">
-                        <form>
-                            <select class="input-select">
-                                <option value="0">All Categories</option>
-                                <option value="1">Category 01</option>
-                                <option value="1">Category 02</option>
+                        <form class="">
+                            <select class="input-select mw-16">
+                                {{selectMultiLevel($cates, 0 , '', $_GET['q']['category_id'] ?? 0)}}
                             </select>
                             <input class="input" placeholder="{{ trans('guestIndex.search-here') }}">
                             <button class="search-btn">{{ trans('guestIndex.search') }}</button>
@@ -59,7 +57,7 @@
                             <a href="#">
                                 <i class="fa fa-heart-o"></i>
                                 <span>{{ trans('guestIndex.wishList') }}</span>
-                                <div class="qty">{{ $cart != null ? count(session()->get('cart')) : 0 }}</div>
+                                <div class="qty">{{ $cart != null ? count($cart) : 0 }}</div>
                             </a>
                         </div>
                         <div class="dropdown">

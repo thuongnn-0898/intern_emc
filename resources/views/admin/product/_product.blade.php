@@ -1,6 +1,6 @@
 <tr id="product-{{$product->id}}">
     <td>{{ numIndex(($_GET['page'] ?? 1), $key) }}</td>
-    <td><img src="{{ asset('uploads/'.$product->image) }}" class="img-fluid"></td>
+    <td><img src="{{ asset('uploads/'.$product->image) }}" class="img-fluid w-100"></td>
     <td>{{ $product->name }}</td>
     <td>{{ $product->price }}</td>
     <td>{{ $product->shortText }}</td>
@@ -11,7 +11,7 @@
     <td>{{ $product->created_at }}</td>
     <td>
         <div class="btn-group">
-            <a href="{{ route('product.edit', $product->id) }}" class="btn btn-warning btn-sm">{{ trans('admin.edit') }}</a>
+            <a href="{{ route('product.edit', $product->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
             <a
                 class="btn btn-primary btn-sm"
                 href="{{ route('product.show', $product->id) }}"

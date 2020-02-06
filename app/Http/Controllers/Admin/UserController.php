@@ -117,7 +117,8 @@ class UserController extends Controller
             if($request->hasFile('image')){
                 $service = new HandleImageService($request, null, 'avatars');
                 $datas['profile']['avatar'] = $service->excute();
-                $service->handleOldImage($detail->avatar);
+                if($user->profile->avatar ?? false)
+                    $service->handleOldImage($user->profile->avatar);
             }
             $update = $this->user->updateById($id, $datas);
             if ($update && $datas['profile'])
@@ -158,16 +159,16 @@ class UserController extends Controller
         try {
             $user = $this->user->getById($id);
             $this->authorize('destroy', $user);
-            if(!empty($user->profile()->first()->avatar)){
-                $service = new HandleImageService($id, $user);
-                $img = $service->handleOldImage($user->profile()->first()->avatar);
-                $service->handleOldImage($img);
+            if($user->profile->avatar ?? false){
+                $service = new HandleImageService($id, $user, 'avatars');
+                $service->handleOldImage($user->profile->avatar);
             }
             $user->delete();
             DB::commit();
 
             return response()->json(['status' => true, 'msg' => trans('user.msg.destroySucc')]);
         }catch (\Exception $e){
+
             DB::rollBack();
 
             return response()->json(['status' => false, 'msg' => $e->getMessage()]);

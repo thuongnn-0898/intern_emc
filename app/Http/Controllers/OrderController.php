@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
+use App\Mail\UserOrder;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -42,6 +44,7 @@ class OrderController extends Controller
         try {
             $cart = session()->get('cart');
             if($cart == null){
+
                 return back()->with(trans('status.fail'), trans('product.cartEmpty'));
             }else{
                 $order = Auth::user()->orders()->create($request->all());
@@ -54,11 +57,17 @@ class OrderController extends Controller
                     $order->orderDetails()->create($orderDetail);
                 }
                 session()->forget('cart');
+                Mail::to(Auth::user())->later(now(), new UserOrder($order));
             }
             DB::commit();
-            return redirect('/');
+            return redirect('/')->with(['flash-msg' => [
+                'status'=> trans('status.ok'),
+                'msg' => trans('order.success')
+            ],
+            ]);;
         }catch (\Exception $e){
             DB::rollBack();
+
             return back()->withInput()->with([
                 'flash' => [
                     'status' => trans('status.caut'),

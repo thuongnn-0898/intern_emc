@@ -16,6 +16,7 @@ return [
         'imageDetail' => 'Image details',
 
     ],
+    'list' => 'List products',
     'productT'=> 'Create Product',
     'productE'=> 'Edit Product',
     'request' => [
@@ -74,6 +75,8 @@ return [
         'reviewUr' => 'Your review',
         'rateUr' => 'Your ratings',
         'firstReview' => 'There is no comments, let\'s the first person comment!',
+        'order' => 'Let\'s order now!',
+
     ],
     'tab' => [
         'review' => 'Reiews',
@@ -81,5 +84,16 @@ return [
         'desc' => 'Description',
     ],
     'cartEmpty' => 'Your cart empty',
+    'order'=> [
+        'asc' => 'Ascending',
+        'desc' => 'Descending',
+        'shortBy' => 'Short by',
+        'byPrice' => 'Short by price',
+        'show' => 'Show',
+        'topSell' => 'Top selling',
+        'brand' => 'Brand',
+        'price' => 'Price',
+        'option' => 'Options',
+    ],
 ];
 ?>

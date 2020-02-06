@@ -18,4 +18,9 @@ class OrderDetail extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function getProductNameAttribute($value)
+    {
+        return $this->product->name;
+    }
+
 }
