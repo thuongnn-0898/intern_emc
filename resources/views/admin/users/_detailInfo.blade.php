@@ -12,7 +12,7 @@
                            class="form-control"
                            id="country" name="profile[country]"
                            placeholder="{{ trans('user.form.country.holder') }}"
-                           value="{{ old("profile.country") }}"
+                           value="{{ isset($user) ? $user->profile()->first()->country ?? '' : old("profile.country") }}"
                     >
                 </div>
             </div>
@@ -25,7 +25,7 @@
                            id="phone"
                            name="profile[phone]"
                            placeholder="{{ trans('user.form.phone.holder') }}"
-                           value="{{ old("profile.phone") }}"
+                           value="{{ isset($user) ? $user->profile()->first()->phone ?? '' : old("profile.phone") }}"
                     >
                 </div>
             </div>
@@ -33,12 +33,12 @@
                 <label class="col-lg-2 col-form-label" for="state">{{ trans('user.form.state.title') }}
                 </label>
                 <div class="col-lg-10">
-                    <input type="password"
+                    <input type="text"
                            class="form-control"
                            id="state"
                            name="profile[state]"
                            placeholder="{{ trans('user.form.state.holder') }}"
-                           value="{{ old("profile.state") }}"
+                           value="{{ isset($user) ? $user->profile()->first()->state ?? '' : old("profile.state") }}"
                     >
                 </div>
             </div>
@@ -51,9 +51,9 @@
                         class="form-control"
                         id="address"
                         placeholder="{{ trans('user.form.address.holder') }}"
-                        value="{{ old("profile.address") }}"
+                        value="{{  old("profile.address") }}"
                     >
-                        {{ old("profile.address") }}
+                        {{ isset($user) ? $user->profile()->first()->address ?? '' : old("profile.address") }}
                     </textarea>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                 <label class="col-lg-2 col-form-label" for="address">{{ trans('user.form.image.title') }}
                 </label>
                 <div class="custom-file col-lg-10">
-                    <input type="file" class="custom-file-input" name="profile[avatar]">
+                    <input type="file" class="custom-file-input" name="image">
                     <label class="custom-file-label">{{ trans('user.form.image.holder') }}</label>
                 </div>
                 </div>

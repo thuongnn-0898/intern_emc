@@ -3,9 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Services\ProductService;
+use App\Services\HandleImageService;
 
-class ProductServiceProvider extends ServiceProvider
+class HandleImageServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -15,12 +15,12 @@ class ProductServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('product', function($app){
-            return new ProductService();
+            return new HandleImageService();
         });
 
         $this->app->booting(function (){
             $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-            $loader->alias('ProductService', 'App\Services\ProductService');
+            $loader->alias('HandleImageService', 'App\Services\HandleImageService');
         });
     }
 
