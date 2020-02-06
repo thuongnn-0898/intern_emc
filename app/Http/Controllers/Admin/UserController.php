@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->user->getUser()->paginate(Config::get('settings.perPage'));
+        $users = $this->user->getUser()->paginate(\Config::get('settings.perPage'));
 
         return view('admin.users.index', compact('users'));
     }
@@ -45,7 +45,6 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UserRequest $request)
@@ -180,8 +179,10 @@ class UserController extends Controller
         try {
             $user = $this->user->getById($id);
             $user->update(['status' => !(int)$status]);
+
             return response()->json(['status' => true, 'msg' => trans('user.msg.handing')]);
         }catch (\Exception $e){
+
             return response()->json(['status' => false, 'msg' => trans('user.msg.notFound')]);
         }
     }

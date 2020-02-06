@@ -26,7 +26,7 @@ class Active
 
             return redirect('/')->with(['flash-msg' => [
                     'status'=> trans('status.danger'),
-                    'msg' => 'Fail',
+                    'msg' => trans('user.msg.inactive'),
                 ],
             ]);
 

@@ -63,7 +63,7 @@
                 <li class="icons dropdown">
                     <div class="user-img c-pointer position-relative"  data-toggle="dropdown">
                         <span class="activity active"></span>
-                        <img src="{{ asset(!Auth::check() ? '' : Auth::user()->imageDefault()) }}" height="40" width="40" alt="">
+                        <img src="{{ asset(!Auth::check() ? '' : Auth::user()->imageDefault()) }}" class="default-img-sm" alt="">
                     </div>
                     <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                         <div class="dropdown-content-body">

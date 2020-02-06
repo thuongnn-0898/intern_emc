@@ -6,7 +6,7 @@
         <div class="card-body">
             <div class="form-group row ">
                 @isset($user)
-                    <img src="{{ asset($user->imageDefault()) }}" class="img-fluid m-auto" height="200" width="200"/>
+                    <img src="{{ asset($user->imageDefault()) }}" class="img-fluid m-auto default-img-lg"/>
                 @endisset
             </div>
             <div class="form-group row">

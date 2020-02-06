@@ -23,7 +23,6 @@ Route::group(['middleware' => ['role', 'active']], function () {
         Route::resource('product', 'Admin\ProductController');
         Route::resource('user', 'Admin\UserController');
         Route::patch('user/active/{id}/{status}', 'Admin\UserController@active');
-        Route::resource('product', 'Admin\ProductController');
     });
 });
 

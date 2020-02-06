@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use File;
+use Illuminate\Support\Str;
 
 class HandleImageService {
 
@@ -28,9 +29,9 @@ class HandleImageService {
     }
 
     public function handleImage($image){
-        $imageName = time().randomStr(15).'.'.$image->getClientOriginalExtension();
+        $imageName = time().Str::random(15).'.'.$image->getClientOriginalExtension();
         $image->move($this->destinationPath, $imageName);
-        
+
         return $imageName;
     }
 
