@@ -20,6 +20,7 @@ Route::group(['middleware' => 'role'], function () {
     Route::group(['prefix' => 'admin'], function (){
         Route::get('/dashboard', 'Admin\DashboardController@index')->name('adminDashboard');
         Route::resource('category', 'Admin\CategoryController')->except('show');
+        Route::resource('product', 'Admin\ProductController');
     });
 });
 
