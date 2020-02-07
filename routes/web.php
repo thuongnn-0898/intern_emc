@@ -26,6 +26,9 @@ Route::group(['middleware' => 'auth'], function (){
 Route::get('/', 'DashboardController@index');
 Route::post('add-cart', 'CartController@store');
 Route::delete('delete-item-cart/{id}', 'CartController@destroy');
+Route::get('view-cart', 'CartController@show')->name('cart-show');
+Route::get('show-product/{id}', 'DashboardController@show')->name('product-show');
+
 Route::group(['middleware' => ['role', 'active']], function () {
     Route::group(['prefix' => 'admin'], function (){
         Route::get('/dashboard', 'Admin\DashboardController@index')->name('adminDashboard');
