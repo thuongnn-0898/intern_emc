@@ -51,7 +51,6 @@ class CartController extends Controller
             }
 
             return view('guest._cart_item', compact('cart'));
-
         }catch(\Exception $e){
 
             return response()->json(['status' => false, 'data'=> $e->getMessage()]);
@@ -76,6 +75,12 @@ class CartController extends Controller
     {
         session()->forget('cart');
 
+        return response()->json(['success' => true]);
+    }
+
+    public function cartempty()
+    {
+        session()->forget('cart');
         return response()->json(['success' => true]);
     }
 }

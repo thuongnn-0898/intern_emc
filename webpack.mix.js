@@ -18,5 +18,6 @@ mix.js([
     'resources/js/admin/product.js',
     'resources/js/order.js',
     'resources/js/cart.js',
+    'resources/js/order.js',
     ], 'public/js')
     .sass('resources/sass/app.scss', 'public/css');

@@ -26,8 +26,15 @@ Route::group(['middleware' => 'auth'], function (){
 Route::get('/', 'DashboardController@index');
 Route::post('add-cart', 'CartController@store');
 Route::delete('delete-item-cart/{id}', 'CartController@destroy');
+Route::delete('delete-cart', 'CartController@cartempty');
 Route::get('view-cart', 'CartController@show')->name('cart-show');
 Route::get('show-product/{id}', 'DashboardController@show')->name('product-show');
+
+Route::group(['middleware' => 'auth'], function (){
+    Route::resource('users', 'User\UserController');
+    Route::post('review', 'DashboardController@review')->name('review');
+    Route::resource('orders', 'OrderController')->only('store');
+});
 
 Route::group(['middleware' => ['role', 'active']], function () {
     Route::group(['prefix' => 'admin'], function (){
