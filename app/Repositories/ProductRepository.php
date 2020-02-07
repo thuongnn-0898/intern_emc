@@ -18,4 +18,5 @@ class ProductRepository extends BaseRepository
     {
        return Product::class;
     }
+
 }

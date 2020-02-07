@@ -66,5 +66,6 @@ function getSubTotalCart()
         $total += $val['price'] * $val['qty'];
     }
     return $total;
+}
 
 ?>
