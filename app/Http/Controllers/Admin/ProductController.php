@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\ImageDetail;
@@ -11,7 +11,7 @@ use App\Services\HandleImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ProductController extends Controller
+class ProductController extends AdminController
 {
     protected $product;
 

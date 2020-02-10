@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\AdminController;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class DashboardController extends AdminController
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $orders = Order::with('user', 'orderDetails')->orderBy('status')->paginate(5);
+        return view('admin.dashboard', compact('orders'));
     }
 }

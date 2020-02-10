@@ -29,11 +29,16 @@ Route::delete('delete-item-cart/{id}', 'CartController@destroy');
 Route::delete('delete-cart', 'CartController@cartempty');
 Route::get('view-cart', 'CartController@show')->name('cart-show');
 Route::get('show-product/{id}', 'DashboardController@show')->name('product-show');
+Route::resource('products', 'ProductController')->only('index');
+
 
 Route::group(['middleware' => 'auth'], function (){
-    Route::resource('users', 'User\UserController');
+    Route::resource('users', 'User\UserController')->middleware('active');
     Route::post('review', 'DashboardController@review')->name('review');
     Route::resource('orders', 'OrderController')->only('store');
+    Route::resource('suggest', 'SuggestController');
+    Route::get('accept-suggest/{id}', 'SuggestController@accept')->name('suggest-create');
+    Route::post('suggest-store/{suggest_id}', 'SuggestController@handing')->name('suggest-store');
 });
 
 Route::group(['middleware' => ['role', 'active']], function () {
@@ -43,6 +48,7 @@ Route::group(['middleware' => ['role', 'active']], function () {
         Route::resource('user', 'Admin\UserController');
         Route::patch('user/active/{id}/{status}', 'Admin\UserController@active');
         Route::resource('product', 'Admin\ProductController');
+        Route::resource('order', 'Admin\OrderController');
     });
 });
 

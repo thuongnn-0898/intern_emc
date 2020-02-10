@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class CategoryController extends AdminController
 {
     protected $category;
 
@@ -89,8 +89,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, $id)
     {
         $cate = $cate = $this->cateById($request, $id);
-        $a = new Category;
-        $idsCate = $a->getChildren($cate);
+        $idsCate = Category::getChildren($cate);
         array_push($idsCate, $cate->id);
         if(in_array((int)$request->parent_id, $idsCate, true))
 
@@ -117,8 +116,7 @@ class CategoryController extends Controller
     public function destroy(Request $req, $id)
     {
         $cate = $this->cateById($req, $id);
-        $a = new Category;
-        $idsCate = $a->getChildren($cate);
+        $idsCate = Category::getChildren($cate);
         array_push($idsCate, $cate->id);
         $this->category->deleteMultipleById($idsCate);
 

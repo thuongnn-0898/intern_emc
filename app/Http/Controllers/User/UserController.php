@@ -20,11 +20,13 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $orders = $user->orders()->paginate(6);
+        return view('guest.users.index', compact('orders'));
     }
 
     /**

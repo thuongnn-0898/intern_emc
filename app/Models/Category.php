@@ -53,7 +53,7 @@ class Category extends Model
         return $this->children()->with('childrenRecursive');
     }
 
-    public function getChildren($category){
+    public static function getChildren($category){
         $ids = [];
         foreach ($category->children as $cat) {
             $ids[] = $cat->id;

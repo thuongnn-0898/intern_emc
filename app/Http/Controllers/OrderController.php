@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
+use App\Jobs\SendMailJob;
+use App\Mail\UserOrder;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -54,9 +57,17 @@ class OrderController extends Controller
                     $order->orderDetails()->create($orderDetail);
                 }
                 session()->forget('cart');
+//                Mail::to(Auth::user())->later(now(), new UserOrder($order));
+                for ($i = 0; $i < 5; $i++){
+                    SendMailJob::dispatch($order)->onQueue('processing')->onConnection('database');
+                }
             }
             DB::commit();
-            return redirect('/');
+            return redirect('/')->with(['flash-msg' => [
+                'status'=> trans('status.ok'),
+                'msg' => 'Order successfully, Please wait admin will call to you to acctept',
+            ],
+            ]);;
         }catch (\Exception $e){
             DB::rollBack();
             return back()->withInput()->with([

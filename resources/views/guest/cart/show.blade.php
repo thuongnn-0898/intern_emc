@@ -90,7 +90,11 @@
                             </label>
                         </div>
                         @if(Auth::check())
-                            <a href="#" class="primary-btn order-submit" id="form-order">{{ trans('order.submit') }}</a>
+                            @if(session()->get('cart') == null)
+                                <a href="{{ route('products.index') }}" class="primary-btn order-submit">Let order now!</a>
+                            @else
+                                <a href="#" class="primary-btn order-submit" id="form-order">Place order</a>
+                            @endif
                         @else
                             <a href="#" class="primary-btn order-submit">{{ trans('auth.needLogin') }}</a>
                         @endif

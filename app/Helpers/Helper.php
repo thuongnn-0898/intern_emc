@@ -3,11 +3,11 @@
 function selectMultiLevel($data, $parent, $str = '', $id = 0)
 {
     if($parent == 0 ){
-        echo '<option value="" >'.trans('admin.btn.pathParent').'</option>';
+        echo '<option value="" >---</option>';
     }
     foreach($data as $item){
         if($item->parent_id == $parent){
-            $selectd = $id === $item->id ? 'selected' : '';
+            $selectd = $id == $item->id ? 'selected' : '';
             echo '<option value="'.$item->id.'" '.$selectd.'>'.$str.$item->name.'</option>';
             selectMultiLevel($data, $item->id,$str.'--', $id);
         }
@@ -66,6 +66,15 @@ function getSubTotalCart()
         $total += $val['price'] * $val['qty'];
     }
     return $total;
+}
+
+function checkeBrand($id_item){
+    if(isset($_GET['q']['category_ids'])){
+        foreach ($_GET['q']['category_ids'] as $id){
+            if($id == $id_item)
+                echo 'checked';
+        }
+    }
 }
 
 ?>

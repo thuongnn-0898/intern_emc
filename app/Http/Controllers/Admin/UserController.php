@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\UserStatus;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Requests\UserRequest;
 use App\Repositories\UserRepository;
 use App\Services\HandleImageService;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class UserController extends Controller
+class UserController extends AdminController
 {
     protected $user;
     public function __construct(UserRepository $user)

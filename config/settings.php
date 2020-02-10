@@ -34,5 +34,6 @@ return [
     ],
     'discountPercent' => 20,
     'perPage' => 10,
+    'perProduct' => [ 9, 18, 27],
 ]
 ?>

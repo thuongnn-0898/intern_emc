@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\DaylyMailCron::class,
     ];
 
     /**
@@ -24,8 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+//         $schedule->command('dayly_mail:crob')
+//             ->dailyAt('5:00');
+        $file = 'daily_mail.log';
+        $schedule->command('daily_mail:cron')
+                 ->sendOutputTo($file)
+                 ->everyMinute();
     }
 
     /**

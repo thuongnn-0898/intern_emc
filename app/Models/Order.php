@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatus;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Order extends Model
 {
+    use Notifiable;
+
     protected $fillable = [
         'address',
         'state',
@@ -28,5 +32,10 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function scopeIsPending($query)
+    {
+        return $query->where('status', OrderStatus::Pendding);
     }
 }

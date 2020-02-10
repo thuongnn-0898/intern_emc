@@ -10,7 +10,7 @@
             </svg>
         </div>
     </div>
-    <div id="main-wrapper">
+    <div id="main-wrapper" class="menu-toggle">
         <div class="nav-header">
             <div class="brand-logo">
                 <a href="index.html">

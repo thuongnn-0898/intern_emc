@@ -68,7 +68,13 @@ class DashboardController extends Controller
                     'msg' => trans('product.msg.reviewFail'),
                 ],
             ]);
+
             DB::rollback();
+            return redirect()->back()->with(['flash-msg' => [
+                'status'=> trans('status.ok'),
+                'msg' => $e->getMessage(),
+                ],
+            ]);
         }
     }
 }
