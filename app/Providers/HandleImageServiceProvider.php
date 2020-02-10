@@ -14,9 +14,7 @@ class HandleImageServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('product', function($app){
-            return new HandleImageService();
-        });
+        $this->app->singleton('product', HandleImageService::class);
 
         $this->app->booting(function (){
             $loader = \Illuminate\Foundation\AliasLoader::getInstance();

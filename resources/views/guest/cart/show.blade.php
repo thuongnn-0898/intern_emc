@@ -40,7 +40,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="input-checkbox col-md-4 offset-md-2">
-{{--                                    <input type="checkbox" id="get-my-profile" value="{{ route('users.show', Auth::id()) }}">--}}
+                                    @auth <input type="checkbox" id="get-my-profile" value="{{ route('users.show', Auth::id()) }}"> @endauth
                                     <label for="get-my-profile">
                                         <span></span>
                                         {{ trans('order.getProfile') }}
@@ -50,10 +50,10 @@
                                     <input type="checkbox" id="create-account">
                                     <label for="create-account">
                                         <span></span>
-                                        {{ trans('order.sendToMail') }}
+                                        {{ trans('order.sendInfo') }}
                                     </label>
                                     <div class="caption">
-                                        <p>{{ trans('order.caption') }}</p>
+                                        <p>{{ trans('order.sendMailAccept') }}</p>
                                         <input class="input" type="text" name="email_info" placeholder="Enter Your email">
                                     </div>
                                 </div>
@@ -91,9 +91,9 @@
                         </div>
                         @if(Auth::check())
                             @if(session()->get('cart') == null)
-                                <a href="{{ route('products.index') }}" class="primary-btn order-submit">Let order now!</a>
+                                <a href="{{ route('product') }}" class="primary-btn order-submit">{{ trans('order.order') }}</a>
                             @else
-                                <a href="#" class="primary-btn order-submit" id="form-order">Place order</a>
+                                <a href="#" class="primary-btn order-submit" id="form-order">{{ trans('order.placeOr') }}</a>
                             @endif
                         @else
                             <a href="#" class="primary-btn order-submit">{{ trans('auth.needLogin') }}</a>

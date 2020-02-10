@@ -9,11 +9,42 @@
                             <div class="col-md-4">
                                 <h4 class="card-title">List Products</h4>
                             </div>
-                            <div class="col-md-8">
-                                <a href="{{ route('product.create') }}" class="btn btn-primary btn-sm float-right">{{ trans('product.create') }}</a>
+                            <div class="col-md-8 pull-right">
+                                <button class="btn btn-sm btn-success pull-right" data-toggle="modal"
+                                        data-target="#modelId">Import</button>
+                                <a href="{{ route('product.create') }}" class="btn btn-primary btn-sm float-right">Create</a>
+                            </div>
+
+                            <div class="modal fade" id="modelId" tabindex="-1" role="dialog"
+                                 aria-labelledby="modelTitleId" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="modelTitleId"></h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" name="file">
+                                                    <label class="custom-file-label">Choose file</label>
+                                                </div>
+                                                <br>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-success">Import</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="table-responsive">
+                            @include('share.errors')
                             <table class="table table-striped table-bordered zero-configuration">
                                 <thead>
                                     <tr>

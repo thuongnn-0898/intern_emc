@@ -26,7 +26,7 @@ class SuggestRequest extends FormRequest
         return [
             'name' => "required|max:100|min:5|unique:products,name,{$this->id},id,deleted_at,NULL",
             'price' => 'required|numeric',
-            'image' => 'mimes:jpeg,jpg,png,gif|max:10000',
+            'image' => 'required|mimes:jpeg,jpg,png,gif|max:10000',
             'message' => 'required',
         ];
     }

@@ -34,6 +34,7 @@ class UserRequest extends FormRequest
             'role' => 'required',
             'status' => 'required',
             'profile.phone' => 'required|numeric|min:10',
+            'profile.language' => 'required',
         ];
     }
 
@@ -55,6 +56,7 @@ class UserRequest extends FormRequest
             'profile.phone.numeric' => trans('user.valid.phone.numeric'),
             'profile.phone.min' => trans('user.valid.phone.min'),
             'profile.phone.max' => trans('user.valid.phone.max'),
+            'profile.language.required' => trans('user.valid.language.required'),
         ];
     }
 }

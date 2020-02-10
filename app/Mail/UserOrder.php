@@ -33,8 +33,7 @@ class UserOrder extends Mailable
     {
         return $this->from('thuongnn1304@gmail.com')
             ->view('emails.orderd')->with([
-                'orderName' => $this->order->name,
-                'orderPrice' => $this->order->price,
+                'product' => $this->order,
             ]);;
     }
 }

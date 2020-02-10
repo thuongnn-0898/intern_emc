@@ -28,5 +28,6 @@ return [
     ],
     'create'=> 'Create',
     'update' => 'Update',
+    'accessDenied' => 'Access Denied'
 ];
 ?>

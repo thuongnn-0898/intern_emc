@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
         <div class="media align-items-center mb-4">
-            <img class="mr-3" src="{{ asset($order->user->image_d()) }}" width="80" height="80" alt="">
+            <img class="mr-3" src="{{ asset($order->user->imageDefault()) }}" width="80" height="80" alt="">
             <div class="media-body">
                 <h3 class="mb-0">{{ $order->user->name }}</h3>
             </div>
@@ -11,7 +11,7 @@
                 <div class="col">
                     <div class="card card-profile text-center">
                         <span class="mb-1 text-primary">
-                            <img src="{{ asset($val->product->image) }}" width="50px"/>
+                            <img src="{{ asset('uploads/'.$val->product->image) }}" width="50px"/>
                         </span>
                         <h3 class="mb-0">$ {{ $val->product->price }}</h3>
                         <p class="text-muted px-4">x {{ $val->quantity }}</p>

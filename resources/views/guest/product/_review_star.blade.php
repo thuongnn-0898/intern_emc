@@ -1,14 +1,4 @@
 <div id="rating">
-    <div class="rating-avg">
-        <span>4.5</span>
-        <div class="rating-stars">
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star-o"></i>
-        </div>
-    </div>
     <ul class="rating">
         @foreach($product->rate != null ? $product->rate->rates : \Config::get('settings.rates')  as $key => $rate)
             <li class="row">
@@ -18,7 +8,7 @@
                     @endfor
                 </div>
                 <div class="rating-progress col-md-6">
-                    <div class="w-75"></div>
+                    <div class="w-100"></div>
                 </div>
                 <span class="sum">{{ $rate }}</span>
             </li>

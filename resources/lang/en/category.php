@@ -3,7 +3,7 @@
 return [
     'createSucc' => 'Create Category successfully',
     'destroySucc' => 'Delete Category successfully',
-    'uploadSucc' => 'Upload Category successfully',
+    'updateSucc' => 'Update Category successfully',
     'notFound' => 'Category not found',
     'failChild' => 'Can\'t update like this',
     'title' => 'Category',

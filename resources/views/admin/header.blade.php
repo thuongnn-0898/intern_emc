@@ -24,11 +24,13 @@
                     @if(Auth::user()->isAdmin())
                         <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
                                 <i class="mdi mdi-email-outline"></i>
-                                <span class="badge badge-pill gradient-1">{{ isset($orders_noti) ? count($orders_noti) : '' }}</span>
+                                <span class="badge badge-pill gradient-1 badgeO" id="count-order" data-count="{{ isset($orders_noti) ? count($orders_noti) : '' }}">
+                                    {{ isset($orders_noti) ? count($orders_noti) : '' }}
+                                </span>
                             </a>
                             <div class="drop-down animated fadeIn dropdown-menu" style="max-height: 300px; overflow-y: scroll">
                                 <div class="dropdown-content-body">
-                                    <ul>
+                                    <ul id="noti-header">
                                         @if(isset($orders_noti))
                                             @each('admin._item_order_noti', $orders_noti, 'item')
                                         @endif
@@ -44,45 +46,39 @@
                         <div class="drop-down dropdown-language animated fadeIn  dropdown-menu">
                             <div class="dropdown-content-body">
                                 <ul>
-                                    <li><a href="javascript:void()">English</a></li>
-                                    <li><a href="javascript:void()">Dutch</a></li>
+                                    @foreach(\Config::get('settings.language') as $k => $v)
+                                        <li><a href="javascript:void(0)">{{ $v }}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
                     </li>
                     <li class="icons dropdown">
-                        <div class="user-img c-pointer position-relative"  data-toggle="dropdown">
+                        <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                             <span class="activity active"></span>
-                            <img src="{{ asset(!Auth::check() ? '' : Auth::user()->image_d()) }}" height="40" width="40" alt="">
+                            <img src="{{ asset(!Auth::check() ? '' : Auth::user()->imageDefault()) }}" height="40" width="40" alt="">
                         </div>
-                    </div>
-                </li>
-                <li class="icons dropdown">
-                    <div class="user-img c-pointer position-relative"  data-toggle="dropdown">
-                        <span class="activity active"></span>
-                        <img src="{{ asset(!Auth::check() ? '' : Auth::user()->imageDefault()) }}" class="default-img-sm" alt="">
-                    </div>
-                    <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
-                        <div class="dropdown-content-body">
-                            <ul>
-                                <li>
-                                    <a href="{{ route('user.show', !Auth::check() ? '' : Auth::id()) }}"><i class="icon-user"></i> <span>{{ trans('admin.profile') }}</span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void()">
-                                        <i class="icon-envelope-open"></i> <span>{{ trans('admin.sidebar.suggest') }}</span>
-                                        <div class="badge gradient-3 badge-pill gradient-1">3</div>
-                                    </a>
-                                </li>
-
-                                <hr class="my-2">
-                                <li>
-                                    <form action="{{ route('logout') }}" method="POST" id="logout-form">
-                                        @csrf
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();" id="logout">
-                                            <i class="icon-key"></i>
-                                            <span>{{ trans('guestIndex.logout') }}</span>
+                        <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                            <div class="dropdown-content-body">
+                                <ul>
+                                    <li>
+                                        <a href="{{ route('index') }}">
+                                            <i class="icon-home"></i> <span>{{ trans('admin.sidebar.list') }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ profileBy() }}">
+                                            <i class="icon-user"></i> <span>{{ trans('admin.profile') }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void()">
+                                            <i class="icon-envelope-open"></i> <span>{{ trans('admin.sidebar.suggest') }}</span>
+                                            <div class="badge gradient-3 badge-pill gradient-1">
+                                            @if(Auth::user()->isAdmin())
+                                                {{ \App\Models\Suggest::where('status', 0)->count() }}
+                                            @endif
+                                            </div>
                                         </a>
                                     </li>
 

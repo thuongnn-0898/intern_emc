@@ -3,7 +3,11 @@
 </div>
 @if(isset($user))
     <form
-        action="{{ route('user.update', $user->id) }}"
+        @if($user->isAdmin())
+            action="{{ route('user.update', $user->id) }}"
+        @else
+            action="{{ route('users.update', $user->id) }}"
+        @endif
         class="col-md-12 row"
         method="POST"
         id="form-user"

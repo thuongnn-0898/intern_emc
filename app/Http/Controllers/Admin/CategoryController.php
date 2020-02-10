@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 
-class CategoryController extends AdminController
+class CategoryController extends Controller
 {
     protected $category;
 
@@ -70,7 +70,7 @@ class CategoryController extends AdminController
                 ->route('category.index')
                 ->with([
                     'flash-msg' => [
-                        'status' => trans('status.fail'),
+                        'status' => trans('status.caut'),
                         'msg'    => trans('category.notFound'),
                     ],
                 ]);
@@ -103,7 +103,12 @@ class CategoryController extends AdminController
                 ]);
         $this->category->updateById($id, $request->all());
 
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with([
+            'flash-msg' => [
+                'status' => trans('status.ok'),
+                'msg'    => trans('category.updateSucc'),
+            ],
+        ]);;
     }
 
     /**

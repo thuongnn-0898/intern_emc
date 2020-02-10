@@ -8,6 +8,10 @@ return [
       'role' => 'Role',
       'created' => 'Created At',
       'avatar' => 'Avatar',
+      'language' => 'Language',
+      'country' => 'Country',
+      'address' => 'Address',
+      'image' => 'Avatar',
   ],
     'msg' => [
         'createSucc' => 'Create User Successfully',
@@ -19,6 +23,7 @@ return [
         'notFound' => 'User Notfound',
         'inactive' => 'Your account has been inactive',
     ],
+    'edit' => 'Edit',
     'baseInf' => 'Base Information',
     'detailInf' => 'Detail Information',
     'form' => [
@@ -60,6 +65,8 @@ return [
        ],
       'role' => 'Role',
       'status' => 'Status',
+      'language' => 'Lang',
+
     ],
     'valid' => [
         'name' => [
@@ -88,6 +95,9 @@ return [
         ],
         'status' => [
             'required' => 'The role is required',
+        ],
+        'language' => [
+            'required' => 'The Language is required',
         ],
     ],
 ];

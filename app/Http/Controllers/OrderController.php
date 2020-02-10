@@ -3,42 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
-use App\Jobs\SendMailJob;
-use App\Mail\UserOrder;
 use App\Models\Order;
-use Illuminate\Http\Request;
+use App\Services\HandleOrderService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\View;
+use Pusher\Pusher;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function show($id)
     {
-        //
+        $order = Order::with('user', 'orderDetails', 'orderDetails.product')->findOrFail($id);
+        return view('admin._order_details', compact('order'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(OrderRequest $request)
     {
         DB::beginTransaction();
@@ -48,28 +28,20 @@ class OrderController extends Controller
                 return back()->with('errors', 'Your cart empty');
             }else{
                 $order = Auth::user()->orders()->create($request->all());
-                foreach ($cart as $k => $item){
-                    $orderDetail = [
-                        'quantity' => $item['qty'],
-                        'product_id' => $item['id'],
-                        'discount' => 0
-                    ];
-                    $order->orderDetails()->create($orderDetail);
-                }
-                session()->forget('cart');
-//                Mail::to(Auth::user())->later(now(), new UserOrder($order));
-                for ($i = 0; $i < 5; $i++){
-                    SendMailJob::dispatch($order)->onQueue('processing')->onConnection('database');
-                }
+                $this->chanelNotifi($order);
+                $service = new HandleOrderService($order);
+                $service->ordered();
             }
             DB::commit();
+
             return redirect('/')->with(['flash-msg' => [
                 'status'=> trans('status.ok'),
-                'msg' => 'Order successfully, Please wait admin will call to you to acctept',
-            ],
+                'msg' => trans('order.msgOrderSucc')
+                ],
             ]);;
         }catch (\Exception $e){
             DB::rollBack();
+
             return back()->withInput()->with([
                 'flash' => [
                     'status' => trans('status.caut'),
@@ -79,48 +51,26 @@ class OrderController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    private function chanelNotifi($order)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $options = array(
+            'cluster' => 'ap1',
+            'encrypted' => true
+        );
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        $item = View::make('admin._item_order_noti',['item' => $order]);
+        $bigItem = View::make('guest.users._order_item', ['order' => $order, 'userAdmin' => true]);
+        $data = [
+            'title' => trans('order.titleInfo'),
+            'content' => trans('order.contentInfo', ['name' => $order->user->name]),
+            'item' => $item->render(),
+            'bigItem' => $bigItem->render(),
+        ];
+        $pusher->trigger('Notify', 'order', $data);
     }
 }

@@ -1,5 +1,5 @@
 <tr id="order-item-{{ $order->id }}">
-    <td><img src="{{ asset($order->user->image_d()) }}" class=" rounded-circle mr-3" alt="">{{ $order->user->name }}</td>
+    <td><img src="{{ asset($order->user->imageDefault()) }}" class=" rounded-circle mr-3" alt="">{{ $order->user->name }}</td>
     <td>
         <span>{{ $order->state }}</span>
     </td>
@@ -19,20 +19,20 @@
     <td>
         <span class="m-0 pl-3">{{ $order->created_at->diffForHumans() }}</span>
     </td>
-    @if(Auth::user()->isAdmin())
-        <td>
+    <td>
         <span>
             <button type="button"
                     class="btn btn-primary order-detail"
                     data-toggle="modal"
                     data-target="#basicModal-{{$order->id}}"
                     data-id="{{ $order->id }}"
-                    data-url="{{ route('order.show', $order->id) }}"
+                    data-url="{{ Auth::user()->isAdmin() ? route('order.show', $order->id) : route('orders.show', $order->id) }}"
             >
                 <i class="fa fa-circle-o text-success  mr-2"></i>Details
             </button>
         </span>
-        </td>
+    </td>
+    @if(Auth::user()->isAdmin() || isset($userAdmin))
         <td class="btn-group">
             @if($order->status == 0)
                 <button class="btn btn-outline-success btn-sm handle-order" data-id="{{ $order->id }}" data-type="1" data-url="{{ route('order.update', $order->id) }}">
@@ -45,20 +45,11 @@
                 <button class="btn btn-outline-danger btn-sm handle-order" data-id="{{ $order->id }}" data-type="2" data-url="{{ route('order.update', $order->id) }}">
                     <i class="fa fa-close"></i>
                 </button>
-            @else
-                <button class="btn btn-outline-success btn-sm handle-order" data-id="{{ $order->id }}" data-type="1" data-url="{{ route('order.update', $order->id) }}">
-                    <i class="fa fa-check"></i>
-                </button>
             @endif
-            <a class="btn btn-outline-primary btn-sm handle-order" href="#"><i class="fa fa-mail-reply"></i></a>
-            <form method="post" action="{{ route('order.destroy', $order->id) }}">
-                @csrf
-                @method('delete')
-                <button class="btn btn-outline-danger btn-sm handle-order" href="{{ route('order.destroy', $order->id) }}" type="submit">
-                    <i class="fa fa-trash"></i>
-                </button>
-            </form>
-        </td>
+            <a class="btn btn-outline-primary btn-sm" href="#"><i class="fa fa-mail-reply"></i></a>
+            <button class="btn btn-outline-danger btn-sm handle-order" data-id="{{ $order->id }}" data-url="{{ route('order.destroy', $order->id) }}" data-method="delete" type="submit">
+                <i class="fa fa-trash"></i>
+            </button>
     @endif
 </tr>
 <div class="modal fade show" id="basicModal-{{$order->id}}">

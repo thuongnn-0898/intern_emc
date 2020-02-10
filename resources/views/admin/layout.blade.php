@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('css')
     <link href="{{ asset('library/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('library/js/plugins/toastr/css/toastr.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('library/plugins/sweetalert/css/sweetalert.css') }}" rel="stylesheet">
 @endsection
 @section('content')
     <div id="preloader">
@@ -29,3 +31,39 @@
         </div>
     </div>
 @endsection
+@section('js')
+    <script src="{{ asset('library/js/plugins/toastr/js/toastr.min.js') }}"></script>
+    <script src="{{ asset('library/js/plugins/toastr/js/toastr.min.js') }}"></script>
+    @yield('jsx')
+    <script>
+        $(document).ready(function(){
+            @if(Session::has('flash-msg'))
+                let status = "{{ Session::get('flash-msg')['status'] }}";
+                let msg = "{{ Session::get('flash-msg')['msg'] }}";
+                if(status == 'success'){
+                    toastr.success(msg)
+                }else if(status == 'danger'){
+                    toastr.error(msg)
+                }else if(status == 'warning'){
+                    toastr.warning(msg)
+                }else{
+                    toastr.info(msg)
+                }
+                @php
+                    Session::forget('flash-msg');
+                @endphp
+            @endif
+        });
+
+        var channel = pusher.subscribe('Notify');
+        channel.bind('order', function(data) {
+            let msg = JSON.stringify(data);
+            const count = $('#count-order').attr('data-count');
+            toastr.info(data.content, data.title);
+            $('#count-order').html(parseInt(count) + 1);
+            $('#noti-header').prepend(data.item);
+            $('#big-item').prepend(data.bigItem);
+        });
+    </script>
+@endsection
+

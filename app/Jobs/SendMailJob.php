@@ -36,7 +36,6 @@ class SendMailJob implements ShouldQueue
      */
     public function handle()
     {
-//        Mail::to($this->user)->later(now(), new UserOrder($this->order));
-        Mail::to(Auth::user())->later(now(), new UserOrder($this->order));
+        Mail::to($this->order->user)->later(now(), new UserOrder($this->order));
     }
 }

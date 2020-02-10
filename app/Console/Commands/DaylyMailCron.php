@@ -42,7 +42,7 @@ class DaylyMailCron extends Command
      */
     public function handle()
     {
-        $user = User::first();
+        $user = User::find(50);
         Mail::to($user)->later(now(), new UserOrder(Order::first()));
     }
 }

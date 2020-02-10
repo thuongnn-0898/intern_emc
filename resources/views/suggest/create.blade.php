@@ -6,27 +6,37 @@
                 <h4 class="card-title">Suggest Product</h4>
                 <div class="basic-form">
                     @include('share.errors')
-                    <form action="{{ route('suggest.store', $suggest->id) }}" method="POST">
+                    <form action="{{ route('suggest.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label" for="name">Name
                             </label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Please enter the name" value="">
+                                <input type="text"
+                                       class="form-control"
+                                       id="name"
+                                       name="name"
+                                       placeholder="Please enter the name" value="{{ old('name') }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label" for="name">Price
                             </label>
                             <div class="col-lg-10">
-                                <input type="number" class="form-control" id="price" name="price" placeholder="Please enter the price" value="">
+                                <input type="number"
+                                       class="form-control"
+                                       id="price"
+                                       name="price"
+                                       placeholder="Please enter the price" value="{{ old('price') }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label" for="name">Messsage
                             </label>
                             <div class="col-lg-10">
-                                <textarea name="message" class="form-control"></textarea>
+                                <textarea name="message" class="form-control">
+                                    {{ old('message') }}
+                                </textarea>
                             </div>
                         </div>
                         <div class="form-group row">

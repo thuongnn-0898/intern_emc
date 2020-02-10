@@ -21,7 +21,7 @@ function numIndex($page = 1, $index)
 
 function checkedOption($key, $product)
 {
-    if($product && $product->has('option')->first() && array_key_exists($key, $product->option->options))
+    if($product && $product->option && array_key_exists($key, $product->option->options))
         return 'checked';
 }
 
@@ -74,6 +74,20 @@ function checkeBrand($id_item){
             if($id == $id_item)
                 echo 'checked';
         }
+    }
+}
+
+function profileBy(){
+    $user = Auth::user();
+    if(!isset($user))
+
+        return '';
+    if($user->isAdmin()){
+
+        return route('user.show', $user->id);
+    }else{
+
+        return route('users.show', $user->id);
     }
 }
 

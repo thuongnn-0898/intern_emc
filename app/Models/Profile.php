@@ -14,6 +14,7 @@ class Profile extends Model
         'address',
         'state',
         'user_id',
+        'language',
     ];
 
     public function user()

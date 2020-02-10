@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\SuggestStatus;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\SuggestRequest;
+use App\Mail\SuggestMail;
 use App\Mail\UserOrder;
 use App\Models\Order;
 use App\Models\Suggest;
@@ -79,11 +80,12 @@ class SuggestController extends Controller
                     }
                 }
             }
+            $suggest = $this->suggest->getById($suggest_id);
+            $suggest->update(['status' => SuggestStatus::Accepted]);
             if($req->all()['sendMail']){
-                Mail::to(Auth::user())->later(now(), new UserOrder(Order::first()));
+                Mail::to(Auth::user())->later(now(), new SuggestMail($suggest));
             }
-            $this->suggest->updateById($suggest_id, ['status' => SuggestStatus::Accepted]);
-            return $this->redirectHandle('suggest.index', 'success', 'Create Product Successfully');
+            return $this->redirectHandle('suggest.index', trans('status.ok'), trans('product.msg.createSucc'));
         }
         abort(403);
     }

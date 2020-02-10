@@ -1,6 +1,6 @@
 <tr id="order-item-{{ $item->id }}">
     <td>{{ numIndex(($_GET['page'] ?? 1), $key ?? 1) }}</td>
-    <td><img src="{{ asset($item->user->image_d()) }}" class=" rounded-circle mr-3" alt="">{{ $item->user->name }}</td>
+    <td><img src="{{ asset($item->user->imageDefault()) }}" class=" rounded-circle mr-3" alt="">{{ $item->user->name }}</td>
     <td>
         <span>{{ $item->price }}</span>
     </td>

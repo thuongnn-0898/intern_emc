@@ -1,15 +1,27 @@
 $(document).ready(function () {
-    $('body').on('click', '.handle-order', function () {
+    $('#preloader').css('display', 'block');
+    $('body').on('click', '.handle-order', function (e) {
+        e.preventDefault();
         const type = $(this).attr('data-type');
         const id = $(this).attr('data-id');
         const url = $(this).attr('data-url');
+        let method = $(this).attr('data-method');
+        if(!method)
+            method = 'put'
         $.ajax({
            url,
-           type: 'put',
+           type: method,
            data: { type, id },
            success: function (res) {
-               $('#order-item-'+id).replaceWith(res);
+               if(method === 'delete'){
+                   $('#order-item-'+id).remove();
+               }else{
+                   $('#order-item-'+id).replaceWith(res);
+               }
+               toastr.success('Handle successfully');
            }
+        }).fail(function () {
+            toastr.error('Has a error, try later!');
         });
     });
 
@@ -31,5 +43,4 @@ $(document).ready(function () {
             scrollTop: $("#order-here").offset().top
         }, 'slow');
     };
-
 });
