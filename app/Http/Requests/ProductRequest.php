@@ -24,7 +24,7 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => "required|max:100|min:5|unique:products,name,{ $this->id },id,deleted_at,NULL",
+            'name' => "required|max:100|min:5|unique:products,name,{$this->id},id,deleted_at,NULL",
             'price' => 'required|numeric',
             'quantity' => 'required|numeric|min:1',
             'shortText' => 'required|max:255',
@@ -49,10 +49,11 @@ class ProductRequest extends FormRequest
             'shortText.required' =>trans('product.request.shortText.required'),
             'shortText.max' => trans('product.request.shortText.max'),
             'longText.required' => trans('product.request.longText.required'),
-            'category_id.required' => trans('product.request.category_id.required'),
+            'category_id.required' => trans('product.request.category.required'),
             'image.required' => trans('product.request.image.required'),
             'image.mimes' =>  trans('product.request.image.mimes'),
             'image.max' => trans('product.request.image.max'),
+
         ];
     }
 }

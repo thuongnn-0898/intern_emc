@@ -16,7 +16,7 @@ return [
         'imageDetail' => 'Image details',
 
     ],
-    'requrest' => [
+    'request' => [
         'name' => [
             'required' => 'The name is required',
             'max' => 'The name is too long',
@@ -40,7 +40,7 @@ return [
             'required' => 'The long description is required',
         ],
         'category' => [
-            'cate' => 'You isn\'t choose Category',
+            'required' => 'You isn\'t choose Category',
         ],
         'image' => [
             'required' => 'The image is required',
@@ -48,6 +48,12 @@ return [
             'max' => 'The image has too big size',
         ],
 
+    ],
+    'msg' => [
+        'createSuss' => 'Create Product successfully',
+        'updateSuss' => 'Update Product successfully',
+        'destroySuss' => 'Destroy Product successfully',
+        'destroyerr' => 'Has a/an errors, please try again!',
     ],
 ];
 ?>

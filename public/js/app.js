@@ -19303,6 +19303,23 @@ $(document).ready(function () {
     var html = $("#clone").html();
     $("#clone").append(html_());
   });
+  $('.delete-product').click(function (e) {
+    e.preventDefault();
+    var id = $(this).attr('data-id');
+    var url = $(this).attr('data-url');
+    $.ajax({
+      url: url,
+      dataType: 'json',
+      type: 'delete',
+      success: function success(res) {
+        if (res.success) {
+          alert(res.msg);
+        }
+      }
+    }).done(function () {
+      $('tr#product-' + id).remove();
+    });
+  });
 });
 
 function html_() {

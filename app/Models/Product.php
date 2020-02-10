@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use SoftDeletes;
-    
+
     protected $fillable = [
         'name',
         'price',
@@ -20,6 +20,18 @@ class Product extends Model
         'view',
         'category_id',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($products) {
+            $products->option()->delete();
+            foreach ($products->imageDetails()->get() as $product) {
+                $product->delete();
+            }
+        });
+    }
 
     public function category()
     {
