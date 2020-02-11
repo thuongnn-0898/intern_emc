@@ -10,15 +10,15 @@
                         @if(!Auth::check())
                             <div class="overlay-order">
                                 <b>
-                                    <div class="">You need login to countinue !
-                                        <a href="{{ route('login') }}">Login here!</a>
+                                    <div class="">
+                                        <a href="{{ route('login') }}">{{ trans('auth.needLogin') }}</a>
                                     </div>
                                 </b>
                             </div>
                         @endif
                         <div class="billing-details">
                             <div class="section-title">
-                                <h3 class="title">Billing address</h3>
+                                <h3 class="title">{{ trans('order.title') }}</h3>
                             </div>
                             <div class="form-group">
                                 <input class="input" type="text" name="address" placeholder="Address" value="{{ old('address') }}">
@@ -43,17 +43,17 @@
 {{--                                    <input type="checkbox" id="get-my-profile" value="{{ route('users.show', Auth::id()) }}">--}}
                                     <label for="get-my-profile">
                                         <span></span>
-                                        Get My profile
+                                        {{ trans('order.getProfile') }}
                                     </label>
                                 </div>
                                 <div class="input-checkbox col-md-6">
                                     <input type="checkbox" id="create-account">
                                     <label for="create-account">
                                         <span></span>
-                                        Send info to my email?
+                                        {{ trans('order.sendToMail') }}
                                     </label>
                                     <div class="caption">
-                                        <p>Chúng tôi sẽ gửi email thông báo cho bạn khi hàng được chấp nhận!</p>
+                                        <p>{{ trans('order.caption') }}</p>
                                         <input class="input" type="text" name="email_info" placeholder="Enter Your email">
                                     </div>
                                 </div>
@@ -62,19 +62,19 @@
                     </div>
                     <div class="col-md-5 order-details">
                         <div class="section-title text-center">
-                            <h3 class="title">Your Order</h3>
+                            <h3 class="title">{{ trans('order.yourO')}}</h3>
                         </div>
                         <div class="order-summary">
                             <div class="order-col">
-                                <div><strong>IMAGE</strong></div>
-                                <div><strong>PRODUCT</strong></div>
-                                <div><strong>TOTAL</strong></div>
+                                <div><strong>{{ trans('order.billCol.image')}}</strong></div>
+                                <div><strong>{{ trans('order.billCol.product')}}</strong></div>
+                                <div><strong>{{ trans('order.billCol.total')}}</strong></div>
                             </div>
                             <div class="order-products">
                                 @if(session()->get('cart'))
                                     @each('guest.cart._item_order', session()->get('cart'), 'item')
                                 @else
-                                    Empty cart
+                                    {{ trans('order.empty') }}
                                 @endif
                             </div>
                             <div class="order-col">
@@ -86,13 +86,13 @@
                             <input type="checkbox" id="terms" name="accept">
                             <label for="terms">
                                 <span></span>
-                                I've read and accept the <a href="#">terms & conditions</a>
+                                {{ trans('order.condition') }}
                             </label>
                         </div>
                         @if(Auth::check())
-                            <a href="#" class="primary-btn order-submit" id="form-order">Place order</a>
+                            <a href="#" class="primary-btn order-submit" id="form-order">{{ trans('order.submit') }}</a>
                         @else
-                            <a href="#" class="primary-btn order-submit">Login to countinue</a>
+                            <a href="#" class="primary-btn order-submit">{{ trans('auth.needLogin') }}</a>
                         @endif
                     </div>
                 </form>

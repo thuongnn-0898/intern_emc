@@ -69,7 +69,6 @@ class CartController extends Controller
         $cart = session()->get('cart');
 
         return view('guest._cart_item', compact('cart'));
-//        return response()->json(['status' => true, 'data' => $cart]);
     }
 
     public function cartempty()

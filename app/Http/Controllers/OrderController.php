@@ -59,7 +59,12 @@ class OrderController extends Controller
             return redirect('/');
         }catch (\Exception $e){
             DB::rollBack();
-            dd($e->getMessage());
+            return back()->withInput()->with([
+                'flash' => [
+                    'status' => trans('status.caut'),
+                    'message' => trans('order.fail')
+                ],
+            ]);
         }
     }
 

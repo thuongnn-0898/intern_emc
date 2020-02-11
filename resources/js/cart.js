@@ -15,7 +15,7 @@ $(document).ready(function () {
 
     $('.add-cart').click(function () {
         const id = $(this).attr('data-id');
-        const url = '/add-cart';
+        const url = $(this).attr('data-url');
         let qty = 1;
         if($('#qty-qty').length){
             qty = $('#qty-qty').val();

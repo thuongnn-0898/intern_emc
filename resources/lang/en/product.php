@@ -16,6 +16,8 @@ return [
         'imageDetail' => 'Image details',
 
     ],
+    'productT'=> 'Create Product',
+    'productE'=> 'Edit Product',
     'request' => [
         'name' => [
             'required' => 'The name is required',

@@ -5,7 +5,7 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Create Product</h4>
+                        <h4 class="card-title">{{ trans('product.productE') }}</h4>
                         @include('admin.product._form')
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <h4 class="card-title">Image Details</h4>
+                            <h4 class="card-title">{{ trans('product.table.imageDetail') }}</h4>
                         </div>
                         <div class="input-group mb-3 row" id="clone">
                             @if(isset($product))

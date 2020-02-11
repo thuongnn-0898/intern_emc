@@ -32,6 +32,7 @@
     </div>
     <div class="add-to-cart">
         <button class="add-to-cart-btn add-cart" data-url="{{ route('cart.store') }}" data-id="{{ $product->id }}">
+            {{ trans('guestIndex.addCart')}}
         </button>
     </div>
 </div>
