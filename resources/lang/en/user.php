@@ -11,7 +11,12 @@ return [
   ],
     'msg' => [
         'createSucc' => 'Create User Successfully',
+        'updateSucc' => 'Update User Successfully',
+        'updateFail' => 'Update User fail, please try again!',
+        'destroySucc' => 'Destroy User Successfully',
         'createFail' => 'Has a/an error(s). please try again',
+        'handing' => 'Update status successfully',
+        'notFound' => 'User Notfound'
     ],
     'baseInf' => 'Base Information',
     'detailInf' => 'Detail Information',

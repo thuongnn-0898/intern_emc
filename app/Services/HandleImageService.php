@@ -2,37 +2,35 @@
 
 namespace App\Services;
 
-use App\Models\ImageDetail;
-use App\Models\Product;
-use Illuminate\Support\Facades\Storage;
 use File;
-use Illuminate\Support\Str;
 
-class ProductService {
+class HandleImageService {
 
     protected $request;
-    protected $product;
+    protected $object;
     protected $destinationPath;
 
-    public function __construct($request, $product = null)
+    public function __construct($request, $object = null, $destinationPath = '/uploads')
     {
         $this->request = $request;
-        $this->product = $product;
-        $this->destinationPath = public_path('/uploads');
+        $this->object = $object;
+        $this->destinationPath = public_path($destinationPath);
     }
 
     public function excute() {
         $handle = $this->request;
         $image = $handle->file('image');
-        if($this->product != null)
+        if($this->object != null)
             $this->handleOldImage();
         $imageName = $this->handleImage($image);
+
         return $imageName;
     }
 
     public function handleImage($image){
-        $imageName = time().Str::random(20).'.'.$image->getClientOriginalExtension();
+        $imageName = time().randomStr(15).'.'.$image->getClientOriginalExtension();
         $image->move($this->destinationPath, $imageName);
+        
         return $imageName;
     }
 

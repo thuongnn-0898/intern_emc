@@ -61,15 +61,15 @@
                     </div>
                 </li>
                 <li class="icons dropdown">
-                    <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
+                    <div class="user-img c-pointer position-relative"  data-toggle="dropdown">
                         <span class="activity active"></span>
-                        <img src="{{ asset('library/images/user/1.png') }}" height="40" width="40" alt="">
+                        <img src="{{ asset(!Auth::check() ? '' : Auth::user()->imageDefault()) }}" height="40" width="40" alt="">
                     </div>
                     <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                         <div class="dropdown-content-body">
                             <ul>
                                 <li>
-                                    <a href="app-profile.html"><i class="icon-user"></i> <span>{{ trans('admin.profile') }}</span></a>
+                                    <a href="{{ route('user.show', !Auth::check() ? '' : Auth::id()) }}"><i class="icon-user"></i> <span>{{ trans('admin.profile') }}</span></a>
                                 </li>
                                 <li>
                                     <a href="javascript:void()">

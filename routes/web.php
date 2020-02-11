@@ -16,12 +16,14 @@ Route::get('/', function () {
 });
 
 Route::get('/', 'DashboardController@index');
-Route::group(['middleware' => 'role'], function () {
+Route::group(['middleware' => ['role', 'active']], function () {
     Route::group(['prefix' => 'admin'], function (){
         Route::get('/dashboard', 'Admin\DashboardController@index')->name('adminDashboard');
         Route::resource('category', 'Admin\CategoryController')->except('show');
         Route::resource('product', 'Admin\ProductController');
         Route::resource('user', 'Admin\UserController');
+        Route::patch('user/active/{id}/{status}', 'Admin\UserController@active');
+        Route::resource('product', 'Admin\ProductController');
     });
 });
 

@@ -28,7 +28,7 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required|max:50|min:5',
-            'email' => 'required|email|unique:users',
+            'email' => "required|email|unique:users,email,{$this->id},id,deleted_at,NULL",
             'password' => 'max:32|min:8|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:8',
             'role' => 'required',

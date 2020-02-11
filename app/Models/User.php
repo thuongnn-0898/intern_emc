@@ -12,11 +12,17 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'status',
+        'role',
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
+        'id'
     ];
 
     protected $casts = [
@@ -55,7 +61,7 @@ class User extends Authenticatable
 
     public function isActive()
     {
-        return $this->role == UserStatus::Active;
+        return $this->status == UserStatus::Active;
     }
 
     public function scopeGetUser($query)
@@ -75,8 +81,11 @@ class User extends Authenticatable
 
     public function imageDefault()
     {
-        if($this->avatar != null)
-            return $this->avatar;
-        return \Config::get('settings.avaDefault');
+        $profile = $this->profile()->first();
+        if(empty($profile->avatar))
+
+            return \Config::get('settings.avaDefault');
+
+        return 'avatars/'.$profile->avatar;
     }
 }

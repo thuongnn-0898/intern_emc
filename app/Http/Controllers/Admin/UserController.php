@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\UserStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Repositories\UserRepository;
+use App\Services\HandleImageService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -23,6 +27,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->user->getUser()->paginate(Config::get('settings.perPage'));
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -40,16 +45,34 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(UserRequest $request)
     {
-        $user = $this->user->create($request->all());
-        if ($user){
-            $user->profile()->create($request->all()['profile']);
-            return redirect()->with(trans('status.ok'), trans('user.msg.createSucc'));
+        DB::beginTransaction();
+        try {
+            $datas = $request->all();
+            if($request->hasFile('image')){
+                $service = new HandleImageService($request, null, 'avatars');
+                $datas['profile']['avatar'] = $service->excute();
+            }
+            $user = $this->user->create($datas);
+            if ($user && $datas['profile'])
+                $user->profile()->create($datas['profile']);
+            DB::commit();
+
+            return $this->redirectHandle('user.index', trans('status.ok'), trans('user.msg.createSucc'));
+        }catch (\Exception $e){
+            DB::rollBack();
+
+            return back()->withInput()->with([
+                'flash-msg' => [
+                    'status' => trans('status.ok'),
+                    'msg' => trans('user.msg.createFail')
+                ],
+            ]);
         }
-        return back()->withInput()->withErrors([trans('status.ok'), trans('user.msg.createSucc')]);
     }
 
     /**
@@ -60,18 +83,22 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.users.show');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
-        //
+        $user = $this->user->with('profile')->getById($id);
+        if(Auth::user()->cant('edit', $user))
+            abort(403);
+
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -79,21 +106,83 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $user = $this->user->getById($id);
+            $datas = $request->all();
+            $detail = $user->profile()->first();
+            if($request->hasFile('image')){
+                $service = new HandleImageService($request, null, 'avatars');
+                $datas['profile']['avatar'] = $service->excute();
+                $service->handleOldImage($detail->avatar);
+            }
+            $update = $this->user->updateById($id, $datas);
+            if ($update && $datas['profile'])
+                if($detail == null){
+                    $user->profile()->create($datas['profile']);
+                }else{
+                    $detail->update($datas['profile']);
+                }
+            DB::commit();
+
+            return redirect()->back()->with([
+                'flash-msg' => [
+                    'status' => trans('status.ok'),
+                    'msg' => trans('user.msg.updateSucc'),
+                ],
+            ]);
+        }catch (\Exception $e){
+            DB::rollBack();
+
+            return back()->withInput()->with([
+                'flash-msg' => [
+                    'status' => trans('status.ok'),
+                    'msg' => trans('user.msg.updateFail')
+                ],
+            ]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $user = $this->user->getById($id);
+            $this->authorize('destroy', $user);
+            if(!empty($user->profile()->first()->avatar)){
+                $service = new HandleImageService($id, $user);
+                $img = $service->handleOldImage($user->profile()->first()->avatar);
+                $service->handleOldImage($img);
+            }
+            $user->delete();
+            DB::commit();
+
+            return response()->json(['status' => true, 'msg' => trans('user.msg.destroySucc')]);
+        }catch (\Exception $e){
+            DB::rollBack();
+
+            return response()->json(['status' => false, 'msg' => $e->getMessage()]);
+        }
+    }
+
+    public function active($id, $status)
+    {
+        try {
+            $user = $this->user->getById($id);
+            $user->update(['status' => !(int)$status]);
+            return response()->json(['status' => true, 'msg' => trans('user.msg.handing')]);
+        }catch (\Exception $e){
+            return response()->json(['status' => false, 'msg' => trans('user.msg.notFound')]);
+        }
     }
 }

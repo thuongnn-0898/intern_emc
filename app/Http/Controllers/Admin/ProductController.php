@@ -7,7 +7,7 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\ImageDetail;
 use App\Repositories\ProductRepository;
-use App\Services\ProductService;
+use App\Services\HandleImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -53,7 +53,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $datas = $request->all();
-        $service = new ProductService($request);
+        $service = new HandleImageService($request);
         $datas['image'] = $service->excute();
         if($product = $this->product->create($datas)){
             if(isset($datas['options']))
@@ -67,6 +67,7 @@ class ProductController extends Controller
         }
 
         return $this->redirectHandle('product.index', trans('status.ok'), trans('product.msg.createSuss'));
+
     }
 
     /**
@@ -108,7 +109,7 @@ class ProductController extends Controller
         DB::beginTransaction();
         try {
             $datas = $request->all();
-            $service = new ProductService($request, $this->product->getById($id));
+            $service = new HandleImageService($request, $this->product->getById($id));
             if($request->hasFile('image')){
                 $datas['image'] = $service->excute();
             }
@@ -140,6 +141,7 @@ class ProductController extends Controller
         catch (\Exception $ex){
             DB::rollback();
 
+
             return back()->withInput();
         }
     }
@@ -155,7 +157,7 @@ class ProductController extends Controller
     {
         try {
             $product = $this->product->getById($id);
-            $service = new ProductService($id, $product);
+            $service = new HandleImageService($id, $product);
             $service->handleOldImage($product->image);
             $imgDetails = $product->imageDetails()->pluck('image')->toArray();
             $service->handleOldImage($imgDetails);

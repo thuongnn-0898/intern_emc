@@ -9,6 +9,7 @@
         id="form-user"
         enctype="multipart/form-data"
     >
+    <input value="{{ $user->id }}" type="hidden" name="id">
     @method('put')
 @else
     <form
