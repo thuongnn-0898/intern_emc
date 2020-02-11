@@ -15,11 +15,11 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('country');
-            $table->integer('phone');
-            $table->string('avatar');
-            $table->string('address');
-            $table->string('state');
+            $table->string('country')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('address')->nullable();
+            $table->string('state')->nullable();
             $table->bigInteger('user_id')
                 ->unsigned()
                 ->foreign('user_id')

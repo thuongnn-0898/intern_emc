@@ -15,5 +15,6 @@ mix.js([
     'resources/js/app.js',
     'resources/js/admin/category.js',
     'resources/js/admin/product.js',
+    'resources/js/admin/user.js',
     ], 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
