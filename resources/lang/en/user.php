@@ -16,7 +16,8 @@ return [
         'destroySucc' => 'Destroy User Successfully',
         'createFail' => 'Has a/an error(s). please try again',
         'handing' => 'Update status successfully',
-        'notFound' => 'User Notfound'
+        'notFound' => 'User Notfound',
+        'inactive' => 'Your account has been inactive',
     ],
     'baseInf' => 'Base Information',
     'detailInf' => 'Detail Information',
