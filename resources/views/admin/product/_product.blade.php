@@ -7,7 +7,7 @@
     <td>{{ $product->status }}</td>
     <td>{{ $product->quantity }}</td>
     <td>{{ $product->view }}</td>
-    <td>{{ $product->category->name ?? '' }}</td>
+    <td>{{ $product->cateName ?? '' }}</td>
     <td>{{ $product->created_at }}</td>
     <td>
         <div class="btn-group">

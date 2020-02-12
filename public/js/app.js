@@ -19444,6 +19444,112 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/cart.js":
+/*!******************************!*\
+  !*** ./resources/js/cart.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $('#cart').click(function () {
+    $('.cart-dropdown').css({
+      "opacity": "1",
+      "visibility": "visible"
+    });
+  });
+  $('#close-cart').click(function () {
+    $('.cart-dropdown').css({
+      "opacity": "0",
+      "visibility": "invisible"
+    });
+  });
+  $('.add-cart').click(function () {
+    var id = $(this).attr('data-id');
+    var url = '/add-cart';
+    var qty = 1;
+
+    if ($('#qty-qty').length) {
+      qty = $('#qty-qty').val();
+    }
+
+    $.ajax({
+      url: url,
+      data: {
+        id: id,
+        qty: qty
+      },
+      type: 'post',
+      success: function success(res) {
+        $('.cart-list').html(res);
+        var totalItem = $('.cart-item').length;
+        $('#item-select').html(totalItem + ' Item(s) selected');
+        $('#qty-cart').html(totalItem);
+      }
+    });
+  });
+  $(body).on('click', '.delete-cart-item', function () {
+    var id = $(this).attr('data-id');
+    $.ajax({
+      url: 'delete-item-cart/' + id,
+      type: 'delete',
+      success: function success(res) {
+        $('.cart-list').html(res);
+        var totalItem = $('.cart-item').length;
+        $('#item-select').html(totalItem + ' Item(s) selected');
+        $('#qty-cart').html(totalItem);
+      }
+    }).fail(function (ers) {
+      alert('Please try again!');
+    });
+  });
+  $('#clear-cart').click(function () {
+    $.ajax({
+      url: 'delete-cart',
+      dataType: 'json',
+      type: 'delete',
+      success: function success(res) {
+        $('.cart-item').remove();
+        var totalItem = $('.cart-item').length;
+        $('#item-select').html('0 Item(s) selected');
+        $('#qty-cart').html(0);
+        $('#subtotal').html('$0');
+      }
+    });
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/order.js":
+/*!*******************************!*\
+  !*** ./resources/js/order.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $('#form-order').click(function () {
+    $('#order-form').submit();
+  });
+  $('#get-my-profile').click(function () {
+    if ($('#get-my-profile').is(':checked')) {
+      var url = $(this).val();
+      console.log(url);
+      $.ajax({
+        url: url,
+        dataType: 'json',
+        type: 'get',
+        success: function success(res) {
+          var user = res.data;
+        }
+      });
+    }
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -19456,9 +19562,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ }),
 
 /***/ 0:
-/*!***********************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/js/admin/category.js ./resources/js/admin/product.js ./resources/js/admin/user.js ./resources/sass/app.scss ***!
-  \***********************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/js/admin/category.js ./resources/js/admin/product.js ./resources/js/admin/user.js ./resources/js/cart.js ./resources/js/order.js ./resources/sass/app.scss ***!
+  \**********************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19466,6 +19572,8 @@ __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/app.j
 __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/admin/category.js */"./resources/js/admin/category.js");
 __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/admin/product.js */"./resources/js/admin/product.js");
 __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/admin/user.js */"./resources/js/admin/user.js");
+__webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/cart.js */"./resources/js/cart.js");
+__webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/order.js */"./resources/js/order.js");
 module.exports = __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/sass/app.scss */"./resources/sass/app.scss");
 
 

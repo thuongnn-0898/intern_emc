@@ -27,6 +27,10 @@ return [
     'addCart' => 'Add To Cart',
     'quickView' => 'Quick View',
     'addWish' => 'Add To Wishlist',
+    'addCompare' => 'Add to compare',
+    'home' => 'Home',
+    'cartPage' => 'Cart page',
+    'qty' => 'Qty',
 ];
 
 ?>

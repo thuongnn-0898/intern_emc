@@ -17,6 +17,7 @@ return [
     'action' => 'Action',
     'edit' => 'Edit',
     'back' => 'Back',
+    'submit' => 'Submit'
     'btn' => [
         'delete' => 'Delete',
         'chooseFile' => 'Choose File',

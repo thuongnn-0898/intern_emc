@@ -22,7 +22,7 @@ class HandleImageService {
         $handle = $this->request;
         $image = $handle->file('image');
         if($this->object != null)
-            $this->handleOldImage();
+            $this->handleOldImage($this->object->image);
         $imageName = $this->handleImage($image);
 
         return $imageName;

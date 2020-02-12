@@ -7,10 +7,16 @@ return [
         'new' => 'false',
         'discount' => 'false',
     ],
+    'rates' => [
+        '1' => 0,
+        '2' => 0,
+        '3' => 0,
+        '4' => 0,
+        '5' => 0,
+    ],
     'discountPercent' => 20,
     'perPage' => 10,
     'avaDefault' => 'default.png',
-
+    'zero' => 0,
 ];
-
 ?>

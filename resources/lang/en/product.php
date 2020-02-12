@@ -54,6 +54,24 @@ return [
         'updateSuss' => 'Update Product successfully',
         'destroySuss' => 'Destroy Product successfully',
         'destroyerr' => 'Has a/an errors, please try again!',
+        'reviewSucc' => 'Review this product successfully',
+        'reviewFail' => 'Review form invalid'
+    ],
+    'show' => [
+        'reviewMsg' => ':count Review(s) | Add your review',
+        'available' => 'Avaiable',
+        'inavailable' => 'Inavaiable',
+        'addCart' => 'Add to cart',
+        'soldout' => 'SoldOut - Back',
+        'share' => 'Share',
+        'reviewUr' => 'Your review',
+        'rateUr' => 'Your ratings',
+        'firstReview' => 'There is no comments, let\'s the first person comment!',
+    ],
+    'tab' => [
+        'review' => 'Reiews',
+        'details' => 'Details',
+        'desc' => 'Description',
     ],
 ];
 ?>
