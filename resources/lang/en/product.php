@@ -16,6 +16,8 @@ return [
         'imageDetail' => 'Image details',
 
     ],
+    'productT'=> 'Create Product',
+    'productE'=> 'Edit Product',
     'request' => [
         'name' => [
             'required' => 'The name is required',
@@ -47,7 +49,12 @@ return [
             'mimes' => 'The image is invalid, must JPG, PNG, GIF, JPEG',
             'max' => 'The image has too big size',
         ],
+        'review'=> [
+            'requiredCont' => 'Please type content',
+            'requiredMax' => 'Content too long',
+            'requiredRates' => 'Please evaluate stars',
 
+        ],
     ],
     'msg' => [
         'createSuss' => 'Create Product successfully',
@@ -73,5 +80,6 @@ return [
         'details' => 'Details',
         'desc' => 'Description',
     ],
+    'cartEmpty' => 'Your cart empty',
 ];
 ?>

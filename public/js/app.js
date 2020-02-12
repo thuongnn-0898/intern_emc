@@ -19466,7 +19466,7 @@ $(document).ready(function () {
   });
   $('.add-cart').click(function () {
     var id = $(this).attr('data-id');
-    var url = '/add-cart';
+    var url = $(this).attr('data-url');
     var qty = 1;
 
     if ($('#qty-qty').length) {
@@ -19563,17 +19563,17 @@ $(document).ready(function () {
 
 /***/ 0:
 /*!**********************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/js/admin/category.js ./resources/js/admin/product.js ./resources/js/admin/user.js ./resources/js/cart.js ./resources/js/order.js ./resources/sass/app.scss ***!
+  !*** multi ./resources/js/app.js ./resources/js/admin/category.js ./resources/js/admin/user.js ./resources/js/admin/product.js ./resources/js/order.js ./resources/js/cart.js ./resources/sass/app.scss ***!
   \**********************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/app.js */"./resources/js/app.js");
 __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/admin/category.js */"./resources/js/admin/category.js");
-__webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/admin/product.js */"./resources/js/admin/product.js");
 __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/admin/user.js */"./resources/js/admin/user.js");
-__webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/cart.js */"./resources/js/cart.js");
+__webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/admin/product.js */"./resources/js/admin/product.js");
 __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/order.js */"./resources/js/order.js");
+__webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/js/cart.js */"./resources/js/cart.js");
 module.exports = __webpack_require__(/*! /home/thuongnguyen/Desktop/intern_emc/resources/sass/app.scss */"./resources/sass/app.scss");
 
 

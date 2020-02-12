@@ -10,7 +10,7 @@
                                 <h4 class="card-title">{{ trans('admin.category.title') }}</h4>
                             </div>
                             <div class="col-md-8">
-                                <a href="{{ route('product.create') }}" class="btn btn-primary btn-sm float-right">Create</a>
+                                <a href="{{ route('product.create') }}" class="btn btn-primary btn-sm float-right">{{ trans('product.create') }}</a>
                             </div>
                         </div>
                         <div class="table-responsive">

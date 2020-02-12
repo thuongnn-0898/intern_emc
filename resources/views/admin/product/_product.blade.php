@@ -11,7 +11,7 @@
     <td>{{ $product->created_at }}</td>
     <td>
         <div class="btn-group">
-            <a href="{{ route('product.edit', $product->id) }}" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{{ route('product.edit', $product->id) }}" class="btn btn-warning btn-sm">{{ trans('admin.edit') }}</a>
             <a
                 class="btn btn-primary btn-sm"
                 href="{{ route('product.show', $product->id) }}"
